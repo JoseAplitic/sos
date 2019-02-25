@@ -159,33 +159,4 @@
 				</div>
 			</div>
 		</div>
-		<div class="third-box boxed-width">
-			<div class="value-proposal">
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-box"></i><p><span>Entrega </span>grátis*</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-medal"></i><p><span>El mejor </span>precio</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-money-bill-wave"></i><p><span>Transacciones </span>segúras</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-comments"></i><p><span>Asesoría </span>profesional</p>
-					</div>
-				</div>
-			</div>
-			<div class="banner">
-				<div class="ban">
-					<img src="<?php echo SERVERURL; ?>vistas/assets/img/banner.jpg" alt="Banner">
-				</div>
-			</div>
-		</div>
 	</header>

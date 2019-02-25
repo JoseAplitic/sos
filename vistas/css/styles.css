@@ -125,14 +125,14 @@ header .second-box .navigation-elements .searcher form button{
     font-size: 18px;
 }
 header .second-box .navigation-elements .shopping-cart img{width: 28px;}
-header .value-proposal{
+.value-proposal-box .value-proposal{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
 	align-items: center;
 	padding: 20px 0px;
 }
-header .value-proposal .item{
+.value-proposal-box .value-proposal .item{
 	width: 25%;
 	border-right: 1px dashed #646162;
 	display: flex;
@@ -140,19 +140,19 @@ header .value-proposal .item{
 	justify-content: center;
 	align-items: center;
 }
-header .value-proposal .item .contain{
+.value-proposal-box .value-proposal .item .contain{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
 	width: 80%;
 }
-header .value-proposal .item:last-child{
+.value-proposal-box .value-proposal .item:last-child{
 	border-right-width: 0px;
 }
-header .value-proposal .item i{color: #a91410;margin-right: 10px;font-size: 24px;}
-header .value-proposal .item p{font-size: 18px;font-weight: lighter;}
-header .value-proposal .item p span{font-weight: bold;}
+.value-proposal-box .value-proposal .item i{color: #a91410;margin-right: 10px;font-size: 24px;}
+.value-proposal-box .value-proposal .item p{font-size: 18px;font-weight: lighter;}
+.value-proposal-box .value-proposal .item p span{font-weight: bold;}
 header .banner{margin-bottom: 20px;}
 header .banner .ban img{width: 100%;display: block;}
 header nav ul li .menu-sub-item{

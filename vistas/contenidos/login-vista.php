@@ -1,4 +1,5 @@
 <?php
+/*
 	if (isset($_COOKIE['usuario']) && isset($_COOKIE['clave']))
 	{
 		require_once "./controladores/loginControlador.php";
@@ -13,6 +14,7 @@
 			echo $login->iniciar_sesion_controlador();
 		}
 	}
+	*/
 ?>
 
 <style type="text/css">

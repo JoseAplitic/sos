@@ -1,73 +1,33 @@
-<div class="breadcrumbs animated fadeIn">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>TODAS LAS CATEGORÍAS</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="<?php echo SERVERURL; ?>inicio/">Escritorio</a></li>
-                            <li><a href="<?php echo SERVERURL; ?>productos/">Productos</a></li>
-                            <li class="active">Categorías</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+	require_once "./controladores/categoriasControlador.php";
+	$instanciaCategorias = new categoriasControlador();
 
-<div class="content">
+	require_once "./controladores/mediosControlador.php";
+	$instanciaMedios = new mediosControlador();
 
-	<!-- Menu categorias -->
-	<div class="animated fadeIn">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header">
-						<strong>Opciones</strong>
-						<small>Manejo de categorías</small>
-					</div>
-					<div class="card-body">
-						<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>categorias/'">Todas las categorias</button>
-						<button type="button" class="btn btn-success" role="link" onclick="window.location='<?php echo SERVERURL; ?>nueva-categoria/'">Agregar categoría</button>
-						<button type="button" class="btn btn-info" role="link" onclick="window.location='<?php echo SERVERURL; ?>buscar-categorias/'">Buscar categoría</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	$url = explode("/", $_GET['views']);
+	if (isset($url[1]) && $url[1]!="") {
+		$categoria = $instanciaCategorias->obtener_info_categoria_controlador($url[1]);
+		if($categoria->rowCount()>0)
+		{
+			$infoCat=$categoria->fetch();
+			$vistaPersonalizada = $instanciaCategorias->obtener_info_vista_controlador($infoCat['id']);
+			if($vistaPersonalizada->rowCount()>0){
+				$infoVista=$vistaPersonalizada->fetch();
+				include "./vistas/contenidos/categoria-personalizada-vista.php";
+			}
+			else {
+				include "./vistas/contenidos/categoria-general-vista.php";
+			}
+		}
+		else {
+			$url = SERVERURL;
+			echo '<script>location.href="'.$url.'404/"</script>';
+		}
+	}
+	else {
+		$url = SERVERURL;
+    	echo '<script>location.href="'.$url.'404/"</script>';
+	}
 
-	<?php 
-		require_once "./controladores/administradorControlador.php";
-		$insAdmin= new administradorControlador();
-	?>
-
-	<!-- Lista de usuarios -->
-	<div class="animated fadeIn">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-header">
-						<strong class="card-title">Todos las categorías</strong>
-					</div>
-					<div class="card-body">
-						<div class="table-stats order-table ov-h">
-							<?php 
-								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_categorias_controlador($pagina[1],10,"");
-							?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="clearfix"></div>
+?>

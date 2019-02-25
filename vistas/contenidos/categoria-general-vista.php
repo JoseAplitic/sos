@@ -1,48 +1,8 @@
-	<div class="value-proposal-box">
-		<div class="third-box boxed-width">
-			<div class="value-proposal">
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-box"></i><p><span>Entrega </span>grátis*</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-medal"></i><p><span>El mejor </span>precio</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-money-bill-wave"></i><p><span>Transacciones </span>segúras</p>
-					</div>
-				</div>
-				<div class="item">
-					<div class="contain">
-						<i class="fas fa-comments"></i><p><span>Asesoría </span>profesional</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="banner boxed-width" style="margin-bottom: 20px;">
-		<div class="ban">
-			<img src="<?php echo SERVERURL; ?>vistas/assets/img/banner.jpg" style="display: block;" alt="Banner">
-		</div>
-	</div>
-	<div id="slides" class="slider">
-		<img src="<?php echo SERVERURL; ?>vistas/assets/img/slide.jpg">
-		<img src="<?php echo SERVERURL; ?>vistas/assets/img/slide.jpg">
-		<img src="<?php echo SERVERURL; ?>vistas/assets/img/slide.jpg">
-		<img src="<?php echo SERVERURL; ?>vistas/assets/img/slide.jpg">
-		<img src="<?php echo SERVERURL; ?>vistas/assets/img/slide.jpg">
-		<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fas fa-chevron-left"></i></a>
-		<a href="#" class="slidesjs-next slidesjs-navigation"><i class="fas fa-chevron-right"></i></a>
-	</div>
-	<main class="full-width">
+<main class="full-width">
 		<div class="home-element-1 boxed-width">
 			<div class="categories">
 				<div class="title">
-					<i class="fas fa-bars"><span>Categorías</span></i>
+					<i class="fas fa-bars"><span>Categorías General</span></i>
 				</div>
 				<div class="menu">
 					<ul>
