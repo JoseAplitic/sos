@@ -15,5 +15,12 @@
 			return $vista;
 		}
 
+		public function obtener_info_medio_controlador($id){
+			$vista = mainModel::conectar()->prepare("SELECT titulo, url FROM medios WHERE id = :Id");
+			$vista->bindParam(":Id",$id);
+			$vista->execute();
+			return $vista;
+		}
+
 
 	}

@@ -11,7 +11,8 @@
 				"terminos","nuevo-termino","editar-termino",
 				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
 				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento",
-				"medios","editar-medio","buscar-medios"
+				"medios","editar-medio","buscar-medios",
+				"marcas"
 			];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-vista.php")){

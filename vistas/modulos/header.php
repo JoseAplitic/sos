@@ -32,7 +32,7 @@
 		<div class="second-box full-width">
 			<div class="boxed-width contain">
 				<div class="logo">
-					<a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/logo.png" alt="Smart Oficce Solutions"></a>
+					<a href="<?php echo SERVERURL; ?>"><img src="<?php echo SERVERURL; ?>vistas/assets/img/logo.png" alt="Smart Oficce Solutions"></a>
 				</div>
 				<div class="navigation-elements">
 					<nav>

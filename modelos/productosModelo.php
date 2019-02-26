@@ -5,7 +5,7 @@
 		require_once "./core/mainModel.php";
 	}
 
-	class tiendaModelo extends mainModel
+	class productosModelo extends mainModel
 	{
 		//MODELOS PARA USUARIOS
 		protected function verificar_usuario_disponible($usuario){

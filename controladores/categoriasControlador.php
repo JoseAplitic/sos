@@ -22,6 +22,12 @@
 			return $vista;
 		}
 
+		public function obtener_subcategorias_controlador($id){
+			$sql=mainModel::conectar()->prepare("SELECT nombre,slug,icono FROM taxonomias WHERE taxonomia = 'categoria' AND padre = $id;");
+			$sql->execute();
+			return $sql;
+		}
+
 		//CONTROLADORES USUARIOS
 
 		public function obtener_info_usuarios_controlador($codigo)

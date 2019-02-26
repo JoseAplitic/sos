@@ -4,8 +4,20 @@
 		<div class="content boxed-width">
 			<ol class="breadcrumb">
 				<li><a href="<?php echo SERVERURL; ?>">Home</a></li>
-				<li class="active"><?php echo $infoCat['nombre']; ?></li>
+				<li class="active">Marcas</li>
+				<li class="active"><?php echo $infoMarca['nombre']; ?></li>
 			</ol>
+			<?php
+				$poweredAlt = "";
+				$poweredUrl = "";
+				$imagen =  $instanciaMedios->obtener_info_medio_controlador($infoMarca['icono']);
+				if ($imagen->rowCount()>0) {
+					$infopowered=$imagen->fetch();
+					$poweredAlt = $infopowered['titulo'];
+					$poweredUrl = $infopowered['url'];
+				}
+			?>
+			<div class="powered-by"><p>Powered by:</p><img src="<?php echo $poweredUrl; ?>" alt="<?php echo $poweredAlt; ?>"></div>
 		</div>
 	</div>
 
@@ -22,22 +34,22 @@
 		}
 	?>
 
-	<div class="custom-view-element-1 categoria full-width" style="background-image: url('<?php echo $urlBGcabecera; ?>');background-size: cover;background-position: center;">
+	<div class="custom-view-element-1 marca full-width" style="background-image: url('<?php echo $urlBGcabecera; ?>');background-size: cover;background-position: center;">
 		<div class="content boxed-width">
-			<h2><?php echo $infoCat['nombre']; ?></h2>
-			<h3><?php echo $infoCat['descripcion']; ?></h3>
+			<h2><?php echo $infoMarca['nombre']; ?></h2>
+			<h3><?php echo $infoMarca['descripcion']; ?></h3>
 		</div>
 	</div>
 
 	<div class="custom-view-element-2 boxed-width">
 		<div class="categories-menu-icon">
-			<div class="title">
+			<div class="title" style="background-color: #<?php echo $infoMarca['color']; ?> !important">
 				<div class="content-icon">
 					<div class="icon-title">
 						<?php
 							$iconTitleAlt = "";
 							$iconTitleUrl = "";
-							$imagen =  $instanciaMedios->obtener_info_medio_controlador($infoCat['icono2']);
+							$imagen =  $instanciaMedios->obtener_info_medio_controlador($infoMarca['icono2']);
 							if ($imagen->rowCount()>0) {
 								$infoIconTitle=$imagen->fetch();
 								$iconTitleAlt = $infoIconTitle['titulo'];
@@ -54,43 +66,43 @@
 			<div class="menu-departamentos">
 				<ul>
 					<?php 
-						$subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoCat['id']);
-						if ($subcategorias->rowCount()>0) {
-							$lista = "";
-							foreach($subcategorias as $subcategoria)
-							{
-								$iconTitleAlt = "";
-								$iconTitleUrl = "";
-								$medio=mediosControlador::obtener_info_medio_controlador($subcategoria['icono']);
-								if ($medio->rowCount()>0) {
-									$infoIconTitle=$medio->fetch();
-									$iconTitleAlt = $infoIconTitle['titulo'];
-									$iconTitleUrl = $infoIconTitle['url'];
-								}
-								$lista .= '
-									<li>
-										<div class="img-content">
-											<div class="img">
-												<a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/"><img src="'.$iconTitleUrl.'" alt="'.$iconTitleAlt.'"></a>
-											</div>
-										</div>
-										<div class="title">
-											<p class="fas"><a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/">'.$subcategoria['nombre'].'</a></p>
-										</div>
-									</li>
-								';
-							}
-							echo $lista;
-						}
-						else {
-							echo '
-								<li>
-									<div class="title">
-										<p>No hay departamentos para esta categoria</p>
-									</div>
-								</li>
-							';
-						}
+						// $subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoMarca['id']);
+						// if ($subcategorias->rowCount()>0) {
+						// 	$lista = "";
+						// 	foreach($subcategorias as $subcategoria)
+						// 	{
+						// 		$iconTitleAlt = "";
+						// 		$iconTitleUrl = "";
+						// 		$medio=mediosControlador::obtener_info_medio_controlador($subcategoria['icono']);
+						// 		if ($medio->rowCount()>0) {
+						// 			$infoIconTitle=$medio->fetch();
+						// 			$iconTitleAlt = $infoIconTitle['titulo'];
+						// 			$iconTitleUrl = $infoIconTitle['url'];
+						// 		}
+						// 		$lista .= '
+						// 			<li>
+						// 				<div class="img-content">
+						// 					<div class="img">
+						// 						<a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/"><img src="'.$iconTitleUrl.'" alt="'.$iconTitleAlt.'"></a>
+						// 					</div>
+						// 				</div>
+						// 				<div class="title">
+						// 					<p class="fas"><a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/">'.$subcategoria['nombre'].'</a></p>
+						// 				</div>
+						// 			</li>
+						// 		';
+						// 	}
+						// 	echo $lista;
+						// }
+						// else {
+						// 	echo '
+						// 		<li>
+						// 			<div class="title">
+						// 				<p>No hay departamentos para esta categoria</p>
+						// 			</div>
+						// 		</li>
+						// 	';
+						// }
 					?>
 				</ul>
 			</div>
@@ -135,45 +147,10 @@
 			}
 		?>
 	</div>
-	
-	<div class="custom-view-element-4 custom-view-brands-slide boxed-width">
-		<div class="brands">
-			<div class="title"><h4>Las mejores marcas</h4></div>
-			<div class="brands-slideshow">
-				<?php 
-					$marcas = json_decode($infoVista['marcas'], true);
-					foreach ($marcas as $marca)
-					{
-						$infoMarca = marcasControlador::obtener_info_marca_id_controlador($marca);
-						if ($infoMarca->rowCount()>0)
-						{
-							$infoMarca=$infoMarca->fetch();
-							$medioAlt = "";
-							$medioUrl = "";
-							$medio=mediosControlador::obtener_info_medio_controlador($infoMarca['icono']);
-							if ($medio->rowCount()>0) {
-								$infoMedio=$medio->fetch();
-								$medioAlt = $infoMedio['titulo'];
-								$medioUrl = $infoMedio['url'];
-							}
-							echo '
-							<div class="brands-item">
-								<div class="brand">
-									<a href="'.SERVERURL.'marcas/'.$infoMarca['slug'].'/"><img src="'.$medioUrl.'" alt="'.$medioAlt.'"></a>
-									<a href="'.SERVERURL.'marcas/'.$infoMarca['slug'].'/"><h3>'.$infoMarca['nombre'].'</h3></a>
-								</div>
-							</div>
-							';
-						}
-
-					}
-				?>
-			</div>
-		</div>
-	</div>
 
 	<div class="custom-view-element-5 banner boxed-width">
 		<div class="ban">
+
 			<?php 
 				$banner = json_decode($infoVista['banner'], true);
 				foreach ($banner as $ban)

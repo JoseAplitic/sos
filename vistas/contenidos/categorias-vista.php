@@ -5,6 +5,9 @@
 	require_once "./controladores/mediosControlador.php";
 	$instanciaMedios = new mediosControlador();
 
+	require_once "./controladores/marcasControlador.php";
+	$instanciaMarcas = new marcasControlador();
+
 	$url = explode("/", $_GET['views']);
 	if (isset($url[1]) && $url[1]!="") {
 		$categoria = $instanciaCategorias->obtener_info_categoria_controlador($url[1]);
