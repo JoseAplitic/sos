@@ -13,6 +13,10 @@
 	</style>
 </head>
 <body>
+	<?php 
+		require_once "./controladores/headerControlador.php";
+		$instaciaHeader= new headerControlador();
+	?>
 	<header>
 		<div class="top-bar">
 			<div class="item">
@@ -41,81 +45,17 @@
 								<div class="menu-sub-item full-width">
 									<div class="contain boxed-width categorias">
 										<div class="vertical-menu">
-											<h4>Destacados</h4>
+											<h4>Destacadas</h4>
 											<ul>
-												<li><a href="#">Categoria</a></li>
-												<li><a href="#">Categoria</a></li>
-												<li><a href="#">Categoria</a></li>
-												<li><a href="#">Categoria</a></li>
-												<li><a href="#">Categoria</a></li>
-												<li><a href="#">Categoria</a></li>
+												<?php echo $instaciaHeader->cargar_categorias_destacadas_controlador(); ?>
 											</ul>
 										</div>
 										<div class="details-menu">
 											<div class="detail-title">
-												<h4>Destacados</h4>
+												<h4>Categorías</h4>
 											</div>
 											<div class="detail-contain">
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
-												<div class="detail-item">
-													<a href="#"><i class="fas fa-desktop"><span>Categorías</span></i></a>
-												</div>
+												<?php echo $instaciaHeader->cargar_categorias_controlador(); ?>
 											</div>
 										</div>
 									</div>
@@ -125,18 +65,7 @@
 								<div class="menu-sub-item full-width brand2">
 									<div class="contain boxed-width brands">
 										<div class="brands-slideshow">
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
-											<div class="brand"><a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/dell.png"><h3>Dell</h3></a></div>
+											<?php echo $instaciaHeader->cargar_marcas_controlador(); ?>
 										</div>
 									</div>
 								</div>

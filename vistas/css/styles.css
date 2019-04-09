@@ -130,7 +130,7 @@ header .second-box .navigation-elements .shopping-cart img{width: 28px;}
 	flex-flow: row wrap;
 	justify-content: space-around;
 	align-items: center;
-	padding: 20px 0px;
+	padding: 0px 0px 20px 0px;
 }
 .value-proposal-box .value-proposal .item{
 	width: 25%;
@@ -197,10 +197,10 @@ header .menu-sub-item .categorias .details-menu .detail-title h4{text-transform:
 header .menu-sub-item .categorias .details-menu .detail-contain{display: flex;flex-flow: row wrap;}
 header .menu-sub-item .categorias .details-menu .detail-contain .detail-item:hover a{color: #ec110b;}
 header .menu-sub-item .categorias .details-menu .detail-contain .detail-item{width: 25%;display: flex;flex-flow: row wrap;align-items: center;margin-bottom: 25px;}
-header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a i{display: flex;flex-flow: row wrap;align-items: center;}
-header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a i span{flex: 1 0;color: #7b7979;text-transform: none;font-weight: normal;font-size: 16px;}
-header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a i:before{flex: 0 0;color: #ec110b;padding-right: 15px;font-size: 28px;}
-header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a:hover i span{color: #ec110b;}
+header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a{display: flex;flex-flow: row wrap;align-items: center;}
+header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a img{display: flex;flex: 0 0;width: 25px;margin-right: 10px;}
+header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a span{flex: 1 0;color: #7b7979;text-transform: none;font-weight: normal;font-size: 16px;}
+header .menu-sub-item .categorias .details-menu .detail-contain .detail-item a:hover span{color: #ec110b;}
 header .menu-sub-item .brands{display: flex;flex-flow: row wrap;}
 header .menu-sub-item .brands .brands-slideshow{width: 100%;padding: 0px 20px;position: relative;}
 header .menu-sub-item .brands .brands-slideshow .slick-arrow{position: absolute;top: calc(50% - 16px);font-size: 32px;}
@@ -209,12 +209,12 @@ header .menu-sub-item .brands .brands-slideshow .slick-arrow#next{right: 0px;}
 header .menu-sub-item .brands .brands-slideshow .brand{border-right: 1px solid #2f2f2f;padding: 20px;}
 header .menu-sub-item .brands .brands-slideshow .brand:last-child{border-right-width: 0px;}
 header .menu-sub-item .brands .brands-slideshow .brand a{text-align: center;}
-header .menu-sub-item .brands .brands-slideshow .brand a h3{font-size: 18px;font-weight: bold;}
+header .menu-sub-item .brands .brands-slideshow .brand a h3{font-size: 18px;font-weight: bold;margin-top: 10px;}
 header .menu-sub-item .brands .brands-slideshow .brand a img{width: 100%;}
 header nav ul li .menu-sub-item .brands a{color: #7b7979;}
 header nav ul li .menu-sub-item .brands a:hover{color: #ec110b;}
 /* SLIDER PRINCIPAL */
-.slider{position: relative;}
+.slider{position: relative;margin-bottom: 20px;}
 .slider .slidesjs-navigation{position: absolute;top: calc(50% - 32px);z-index: 9;}
 .slider .slidesjs-navigation i{
 	font-size: 64px;
@@ -227,6 +227,7 @@ header nav ul li .menu-sub-item .brands a:hover{color: #ec110b;}
 .slider .slidesjs-next{right: 15%;}
 .slider .slidesjs-previous{left: 15%;}
 .slider .slidesjs-container{z-index: 8;}
+.slider a img{display: block;width: 100%;}
 /* MAIN */
 main{padding-top: 20px;}
 main .banner{margin-bottom: 20px;}
@@ -237,7 +238,7 @@ main .home-element-1 .categories .title{background-color: #ff110b;padding: 15px;
 main .home-element-1 .categories .title i span{text-transform: uppercase;font-size: 18px;font-weight: normal;}
 main .home-element-1 .categories .title i{display: flex;flex-flow: row wrap;align-items: center;}
 main .home-element-1 .categories .title i:before{margin-right: 20px; font-size: 24px;}
-main .home-element-1 .categories .menu{max-height: 489px;overflow-y: auto;}
+main .home-element-1 .categories .menu{max-height: 507px;overflow-y: auto;}
 main .home-element-1 .categories .menu::-webkit-scrollbar-track{background-color: #b1b1b1;}
 main .home-element-1 .categories .menu::-webkit-scrollbar{width: 3px;background-color: #b1b1b1;}
 main .home-element-1 .categories .menu::-webkit-scrollbar-thumb{background-color: #ff110b;border-radius: 1px;}
@@ -249,7 +250,10 @@ main .home-element-1 .categories .menu > ul > li:last-child > a:after{content: "
 main .home-element-1 .categories .menu > ul > li.icon-open > a:after{content: "\f077";}
 main .home-element-1 .categories .menu ul li i span{font-size: 18px;font-weight: normal;}
 main .home-element-1 .categories .menu ul li i:before{color: #000;margin-right: 20px;}
-main .home-element-1 .categories .menu ul li a{color: #4d4d4d;position: relative;display: block;padding: 15px 27px 15px 15px;}
+main .home-element-1 .categories .menu ul > li > a{display: flex !important;flex-flow: row wrap;align-items: center;text-decoration: none;}
+main .home-element-1 .categories .menu ul > li > a > img{display: flex;flex: 0 0;width: 25px;margin-right: 10px;max-height: 25px;}
+main .home-element-1 .categories .menu ul > li > a > span{display: flex;flex: 1 0;font-size: 18px;font-weight: normal;}
+main .home-element-1 .categories .menu ul li a{color: #4d4d4d;position: relative;display: block;padding: 12px 27px 12px 15px;}
 main .home-element-1 .categories .menu ul li:hover > a, main .home-element-1 .categories .menu ul li:hover > i:before{color: #ff110b;}
 main .home-element-1 .categories .menu .home-element-1-more-cats ul li:first-child{border-top: 1px solid #d2d2d2;}
 main .home-element-1 .categories .menu .close{display: none;}
