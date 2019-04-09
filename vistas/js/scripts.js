@@ -16,6 +16,7 @@ $(document).ready(function(){
 			moreCategories = false;
 		}
 	});
+
 	$("#slides").slidesjs({
 		width: 1200,
 		height: 324,
@@ -28,6 +29,7 @@ $(document).ready(function(){
 			auto: true,
 		}
 	});
+
 	$('.brands-slideshow').slick({
 		dots: true,
 		infinite: false,
@@ -130,7 +132,10 @@ $(document).ready(function(){
 		}
 		]
 	});
-	$("#slides-categoria").slidesjs({
+
+	$("#slides-custom-view").slidesjs({
+		width: 1200,
+		height: 561,
 		navigation: false,
 		pagination: false,
 		play: {
@@ -141,7 +146,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('.brands-slideshow').slick({
+	$('.customview-brands-slideshow').slick({
 		dots: true,
 		infinite: false,
 		speed: 300,

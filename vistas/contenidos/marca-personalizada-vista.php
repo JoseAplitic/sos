@@ -108,7 +108,7 @@
 			</div>
 		</div>
 		<div class="custom-view-slide">
-			<div id="slides-categoria" class="slider-categoria">
+			<div id="slides-custom-view" class="slider-custom-view">
 				<?php 
 					$slides = json_decode($infoVista['slides'], true);
 					foreach ($slides as $slide)
@@ -121,7 +121,7 @@
 							$medioAlt = $infoMedio['titulo'];
 							$medioUrl = $infoMedio['url'];
 						}
-						echo '<div class="slide-categoria"><a href="'.$slide['url'].'"><img src="'.$medioUrl.'" alt="'.$medioAlt.'"></a></div>';
+						echo '<div class="slide-custom-view"><a href="'.$slide['url'].'"><img src="'.$medioUrl.'" alt="'.$medioAlt.'"></a></div>';
 					}
 				?>
 				<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fas fa-chevron-left"></i></a>

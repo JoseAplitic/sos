@@ -69,14 +69,18 @@
 								}
 								$lista .= '
 									<li>
-										<div class="img-content">
-											<div class="img">
-												<a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/"><img src="'.$iconTitleUrl.'" alt="'.$iconTitleAlt.'"></a>
+										<a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/">
+											<div class="menu-departamentos-item">
+												<div class="img-content">
+													<div class="img">
+														<img src="'.$iconTitleUrl.'" alt="'.$iconTitleAlt.'">
+													</div>
+												</div>
+												<div class="texto">
+													<p>'.$subcategoria['nombre'].'<i class="fas fa-chevron-right"></i></p>
+												</div>
 											</div>
-										</div>
-										<div class="title">
-											<p class="fas"><a href="'.SERVERURL.'categorias/'.$subcategoria['slug'].'/">'.$subcategoria['nombre'].'</a></p>
-										</div>
+										</a>
 									</li>
 								';
 							}
@@ -85,8 +89,8 @@
 						else {
 							echo '
 								<li>
-									<div class="title">
-										<p>No hay departamentos para esta categoria</p>
+									<div class="texto">
+										<p><i class="fas fa-times" style="margin-right: 5px;"></i>No se han encontrado departamentos para esta categoría</p>
 									</div>
 								</li>
 							';
@@ -96,7 +100,7 @@
 			</div>
 		</div>
 		<div class="custom-view-slide">
-			<div id="slides-categoria" class="slider-categoria">
+			<div id="slides-custom-view" class="slider-custom-view">
 				<?php 
 					$slides = json_decode($infoVista['slides'], true);
 					foreach ($slides as $slide)
@@ -109,7 +113,7 @@
 							$medioAlt = $infoMedio['titulo'];
 							$medioUrl = $infoMedio['url'];
 						}
-						echo '<div class="slide-categoria"><a href="'.$slide['url'].'"><img src="'.$medioUrl.'" alt="'.$medioAlt.'"></a></div>';
+						echo '<div class="slide-custom-view"><a href="'.$slide['url'].'"><img src="'.$medioUrl.'" alt="'.$medioAlt.'"></a></div>';
 					}
 				?>
 				<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fas fa-chevron-left"></i></a>
@@ -139,7 +143,7 @@
 	<div class="custom-view-element-4 custom-view-brands-slide boxed-width">
 		<div class="brands">
 			<div class="title"><h4>Las mejores marcas</h4></div>
-			<div class="brands-slideshow">
+			<div class="customview-brands-slideshow">
 				<?php 
 					$marcas = json_decode($infoVista['marcas'], true);
 					foreach ($marcas as $marca)
