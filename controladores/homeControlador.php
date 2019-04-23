@@ -51,7 +51,7 @@
                         <ul class="close">';
                         $cerrar = true;
                     }
-                    $lista.='<li><a href="'.SERVERURL.'categorias/'.$rows['slug'].'/">';
+                    $lista.='<li><a href="'.SERVERURL.'categorias/'.$rows['slug'].'/" class="fas">';
                     if ($rows['icono']>0)
                     {
                         $infoMedio=homeModelo::obtener_info_medio_modelo($rows['icono']);
@@ -72,34 +72,27 @@
             return $lista;
 		}
         
-        public function cargar_marcas_controlador()
+        public function cargar_categorias_slider_controlador()
 		{
             $lista = "";
-			$categorias=homeModelo::cargar_categorias_destacadas_modelo();
+			$categorias=homeModelo::cargar_categorias_superiores_slider_modelo();
 			if ($categorias->rowCount() > 0)
 			{
-                $datos = $categorias->fetch();
-                $datos = json_decode($datos['contenido'], true);
-                $datos = $datos['marcas'];
+                $datos = $categorias->fetchAll();
                 foreach($datos as $rows)
 			    {
-                    $infoCat=homeModelo::obtener_info_marca_modelo($rows);
-
-                    if($infoCat->rowCount()>0)
+                    $lista.='
+					<div class="categories-item"><div class="categorie"><a href="'.SERVERURL.'categorias/'.$rows['slug'].'/">';
+                    if ($rows['icono2']>0)
                     {
-                        $info = $infoCat->fetch();
-                        $lista.='<div class="brand"><a href="'.SERVERURL.'marcas/'.$info['slug'].'/">';
-                        if ($info['icono']>0)
+                        $infoMedio=homeModelo::obtener_info_medio_modelo($rows['icono2']);
+                        if($infoMedio->rowCount()>0)
                         {
-                            $infoMedio=homeModelo::obtener_info_medio_modelo($info['icono']);
-                            if($infoMedio->rowCount()>0)
-                            {
-                                $medio = $infoMedio->fetch();
-                                $lista.='<img src="'.$medio['url'].'" alt="'.$medio['titulo'].'">';
-                            }
+                            $medio = $infoMedio->fetch();
+                            $lista.='<img src="'.$medio['url'].'" alt="'.$medio['titulo'].'">';
                         }
-                        $lista.='<h3>'.$info['nombre'].'</h3></a></div>';
                     }
+                    $lista.='<h3>'.$rows['nombre'].'</h3></a></div></div>';
                 }
             }
 

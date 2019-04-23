@@ -43,5 +43,11 @@
 			$sql->execute();
 			return $sql;
         }
+
+		protected function cargar_categorias_superiores_slider_modelo(){
+			$sql=mainModel::conectar()->prepare("SELECT nombre, slug, icono2 FROM taxonomias WHERE taxonomia = 'categoria' AND (padre = 0 OR padre = NULL) ORDER BY nombre ASC;");
+			$sql->execute();
+			return $sql;
+        }
         
 	}
