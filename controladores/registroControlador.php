@@ -28,29 +28,36 @@
                         }
                         else
                         {
-                            if(isset($_POST['terminos']))
+                            if (registroModelo::verificar_correo_empresas($correo)->rowCount()>0)
                             {
-                                $fecha=date("d/m/Y");
-                                $clave=mainModel::encryption($password);
-                                $dataAC=[
-                                    "Nombre"=>$nombre,
-                                    "Apellidos"=>$apellidos,
-                                    "Correo"=>$correo,
-                                    "Clave"=>$clave,
-                                    "Fecha"=>$fecha
-                                ];
-                                $guardarCuenta=registroModelo::agregar_cuenta_personal($dataAC);
-                                if($guardarCuenta->rowCount()>=1)
-                                {
-                                    echo "Registro realizado";
-                                }
-                                else
-                                {
-                                    echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
-                                }
+                                echo "El correo que ingresaste ya esta registrado.";
                             }
-                            else {
-                                echo "Debes aceptar los términos y condiciones y aviso de privacidad.";
+                            else
+                            {
+                                if(isset($_POST['terminos']))
+                                {
+                                    $fecha=date("d/m/Y");
+                                    $clave=mainModel::encryption($password);
+                                    $dataAC=[
+                                        "Nombre"=>$nombre,
+                                        "Apellidos"=>$apellidos,
+                                        "Correo"=>$correo,
+                                        "Clave"=>$clave,
+                                        "Fecha"=>$fecha
+                                    ];
+                                    $guardarCuenta=registroModelo::agregar_cuenta_personal($dataAC);
+                                    if($guardarCuenta->rowCount()>=1)
+                                    {
+                                        echo "Registro realizado";
+                                    }
+                                    else
+                                    {
+                                        echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
+                                    }
+                                }
+                                else {
+                                    echo "Debes aceptar los términos y condiciones y aviso de privacidad.";
+                                }
                             }
                         }
                     }
@@ -95,37 +102,72 @@
                         }
                         else
                         {
-                            if(isset($_POST['terminos']))
+                            if (registroModelo::verificar_correo_empresas($correo)->rowCount()>0)
                             {
-                                if ($correo == $correoConf)
-                                {
-                                    // $fecha=date("d/m/Y");
-                                    // $clave=mainModel::encryption($password);
-                                    // $dataAC=[
-                                    //     "Nombre"=>$nombre,
-                                    //     "Apellidos"=>$apellidos,
-                                    //     "Correo"=>$correo,
-                                    //     "Clave"=>$clave,
-                                    //     "Fecha"=>$fecha
-                                    // ];
-                                    // $guardarCuenta=registroModelo::agregar_cuenta_personal($dataAC);
-                                    // if($guardarCuenta->rowCount()>=1)
-                                    // {
-                                    //     echo "Registro realizado";
-                                    // }
-                                    // else
-                                    // {
-                                    //     echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
-                                    // }
-                                }
-                                else
-                                {
-                                    echo "Los correos no coinciden.";
-
-                                }
+                                echo "El correo que ingresaste ya esta registrado.";
                             }
-                            else {
-                                echo "Debes aceptar los términos y condiciones y aviso de privacidad.";
+                            else
+                            {
+                                if(isset($_POST['terminos']))
+                                {
+                                    if ($correo == $correoConf)
+                                    {
+                                        if (registroModelo::verificar_dpi_empresas($dpi)->rowCount()>0)
+                                        {
+                                            echo "El DPI que ingresaste ya esta registrado.";
+                                        }
+                                        else
+                                        {
+                                            if (registroModelo::verificar_nit_empresas($nit)->rowCount()>0)
+                                            {
+                                                echo "El nit que ingresaste ya esta registrado.";
+                                            }
+                                            else
+                                            {
+                                                if (registroModelo::verificar_institucion_empresas($institucion)->rowCount()>0)
+                                                {
+                                                    echo "El nombre de la compañía/institución que ingresaste ya esta registrado.";
+                                                }
+                                                else
+                                                {
+                                                    if (registroModelo::verificar_telefono_empresas($telefono)->rowCount()>0)
+                                                    {
+                                                        echo "El teléfono que ingresaste ya esta registrado.";
+                                                    }
+                                                    else
+                                                    {
+                                                        // $fecha=date("d/m/Y");
+                                                        // $clave=mainModel::encryption($password);
+                                                        // $dataAC=[
+                                                        //     "Nombre"=>$nombre,
+                                                        //     "Apellidos"=>$apellidos,
+                                                        //     "Correo"=>$correo,
+                                                        //     "Clave"=>$clave,
+                                                        //     "Fecha"=>$fecha
+                                                        // ];
+                                                        // $guardarCuenta=registroModelo::agregar_cuenta_empresarial($dataAC);
+                                                        // if($guardarCuenta->rowCount()>=1)
+                                                        // {
+                                                        //     echo "Registro realizado";
+                                                        // }
+                                                        // else
+                                                        // {
+                                                        //     echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
+                                                        // }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        echo "Los correos no coinciden.";
+
+                                    }
+                                }
+                                else {
+                                    echo "Debes aceptar los términos y condiciones y aviso de privacidad.";
+                                }
                             }
                         }
                     }

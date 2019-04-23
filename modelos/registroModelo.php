@@ -89,5 +89,51 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function verificar_correo_empresas($correo){
+			$sql=mainModel::conectar()->prepare("SELECT correo FROM empresas WHERE correo = :Correo");
+			$sql->bindParam(":Correo",$correo);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_dpi_empresas($dpi){
+			$sql=mainModel::conectar()->prepare("SELECT dpi FROM empresas WHERE dpi = :Dpi");
+			$sql->bindParam(":Dpi",$dpi);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_nit_empresas($nit){
+			$sql=mainModel::conectar()->prepare("SELECT nit FROM empresas WHERE nit = :Nit");
+			$sql->bindParam(":Nit",$nit);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_institucion_empresas($institucion){
+			$sql=mainModel::conectar()->prepare("SELECT institucion FROM empresas WHERE institucion = :Institucion");
+			$sql->bindParam(":Institucion",$institucion);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_institucion_empresas($telefono){
+			$sql=mainModel::conectar()->prepare("SELECT telefono FROM empresas WHERE telefono = :Telefono");
+			$sql->bindParam(":Telefono",$telefono);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function agregar_cuenta_empresarial($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO clientes(nombre,apellido,correo,clave,fecha_registro) VALUES (:Nombre,:Apellidos,:Correo,:Clave,:Fecha);");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Apellidos",$datos['Apellidos']);
+			$sql->bindParam(":Correo",$datos['Correo']);
+			$sql->bindParam(":Clave",$datos['Clave']);
+			$sql->bindParam(":Fecha",$datos['Fecha']);
+			$sql->execute();
+			return $sql;
+		}
         
 	}
