@@ -34,7 +34,7 @@
 				if ($contieneNumero == true){$opcionales += 1;}
 
 				//Comprueba si hay caracteres especiales
-				$especiales = array("@","-","_");
+				$especiales = array("!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "=", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~");
 				$contieneEspecial = false;
 				foreach ($especiales as $especial)
 				{
