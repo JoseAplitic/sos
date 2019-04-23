@@ -70,6 +70,9 @@
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > input:hover, .registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > label:hover{cursor:pointer;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form input[type="submit"]{
 				background-color: #0d6bb7;border-width: 0px !important;border-radius:0px;display:flex;margin:10px auto;width:max-content;color:#fff;padding:15px 150px;font-weight:bold;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > input{display:inline;width:max-content;margin-right:10px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > label{display:inline;width:max-content;color:#0d6bb7;font-size: 12pt;font-weight:normal;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > input:hover, .registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > label:hover{cursor:pointer;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form input[type="submit"]:hover{cursor:pointer;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro{text-align:center;margin-top: 15px;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro a{color:#777575;text-decoration:none;}
@@ -110,7 +113,7 @@
 				<div class="registro-contenido-row row-1">
 					<div class="title">
 						<h4>Crea una cuenta</h4>
-						<p><a href="<?php echo SERVERURL; ?>registro-empresas/">¿Comprando para tu hogar? Crea una cuenta personal.</a></p>
+						<p><a href="<?php echo SERVERURL; ?>registro/">¿Comprando para tu hogar? Crea una cuenta personal.</a></p>
 					</div>
 					<div class="content">
 						<p style="">Ingresa la siguiente información</p>
@@ -153,10 +156,10 @@
 							<input id="correoConf" type="text" name="correoConf" class="FormularioAjaxCampo" required="">
 							
 							<label for="password">Contraseña *</label>
-							<input id="password" type="text" name="password" class="FormularioAjaxCampo" required="">
+							<input id="password" type="password" name="password" class="FormularioAjaxCampo" required="">
 							
 							<label for="passwordConf">Confirmar contraseña *</label>
-							<input id="passwordConf" type="text" name="passwordConf" class="FormularioAjaxCampo" required="">
+							<input id="passwordConf" type="password" name="passwordConf" class="FormularioAjaxCampo" required="">
 
 							<div class="requisitos-password">
 								<p>Por motivos de seguridad su contraseña debe de incluir:</p>
@@ -176,9 +179,9 @@
 								<p>Al crear una cuenta, aceptas los términos y condiciones de Smart Office Solutions y la política de privacidad de Smart Office Solutions, incluida la recepción de ofertas y promociones exclusivas por correo electrónico de Smart Office Solutions. Para administrar tus opciones de marketing, accede a la sección <a href="#">Políticas de privacidad de Smart Office Solutions</a> o llama al número de atención al cliente.</p>
 							</div>
 
-							<input type="checkbox" name="terminos" value="terminos"> Acepto los Términos y Condiciones y Aviso de Privacidad.<br>
+							<p><input id="condiciones" type="checkbox" name="terminos"><label for="condiciones">Acepto los Términos y Condiciones y Aviso de Privacidad.</label></p>
 
-							<input type="checkbox" name="newsletter" value="newsletter"> Deseo inscribirme al newsletter de Smart Office Solutions.<br>
+							<p><input id="newsletter" type="checkbox" name="newsletter"><label for="newsletter">Deseo inscribirme al newsletter de Smart Office Solutions.</label></p>
 							
 							<input class="boton-registro" type="submit" value="Crear Cuenta">
 

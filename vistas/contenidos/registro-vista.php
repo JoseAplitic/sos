@@ -106,7 +106,7 @@
 				<div class="registro-contenido-row row-1">
 					<div class="title">
 						<h4>Crea una cuenta</h4>
-						<p><a href="<?php echo SERVERURL; ?>registro-empresas/">¿Comprando para tu negocio? Crea una cuenta empresarial.</a></p>
+						<p><a href="<?php echo SERVERURL; ?>registro-empresarial/">¿Comprando para tu negocio? Crea una cuenta empresarial.</a></p>
 					</div>
 					<div class="content">
 						<p>Ingresa la siguiente información</p>
