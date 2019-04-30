@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo SERVERURL; ?>vistas/css/styles.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo SERVERURL; ?>vistas/css/faall.min.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo SERVERURL; ?>vistas/css/normalize.css"/>
+	<script type="text/javascript" src="<?php echo SERVERURL; ?>vistas/js/jquery-3.1.1.min.js"></script>
 	<style>
 		@font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:normal;src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.eot);src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.woff2) format("woff2"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.woff) format("woff"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.ttf) format("truetype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-brands-400.svg#fontawesome) format("svg")}.fab{font-family:"Font Awesome 5 Brands"}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.eot);src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.woff2) format("woff2"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.woff) format("woff"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.ttf) format("truetype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-regular-400.svg#fontawesome) format("svg")}.far{font-weight:400}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.eot);src:url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.woff2) format("woff2"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.woff) format("woff"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.ttf) format("truetype"),url(<?php echo SERVERURL; ?>vistas/fonts/fa-solid-900.svg#fontawesome) format("svg")}.fa,.far,.fas{font-family:"Font Awesome 5 Free"}.fa,.fas{font-weight:900}
 	</style>
@@ -16,6 +17,19 @@
 	<?php 
 		require_once "./controladores/headerControlador.php";
 		$instaciaHeader= new headerControlador();
+
+		$loginUsuario = false;
+
+		require_once "./controladores/loginControlador.php";
+		$instaciaLogin = new loginControlador();
+
+		if (isset($_COOKIE['user_correo']) && isset($_COOKIE['user_clave']) && isset($_COOKIE['user_tipo']))
+		{				
+			if ($instaciaLogin->verificar_sesion_controlador($_COOKIE['user_correo'],$_COOKIE['user_clave'],$_COOKIE['user_tipo']))
+			{
+				$loginUsuario = true;
+			}
+		}
 	?>
 	<header>
 		<div class="top-bar">
@@ -26,10 +40,15 @@
 		<div class="first-box full-width">
 			<nav class="boxed-width">
 				<ul>
-					<li><a href="#">Corporativo</a></li>
-					<li><a href="#">Pedidos</a></li>
-					<li><a href="#">Ayuda</a></li>
-					<li><a href="#">Mi Cuenta</a></li>
+					<?php if ($loginUsuario == true): ?>
+						<li><a href="<?php echo SERVERURL; ?>corporativo/">Corporativo</a></li>
+						<li><a href="<?php echo SERVERURL; ?>pedidos/">Pedidos</a></li>
+						<li><a href="<?php echo SERVERURL; ?>ayuda/">Ayuda</a></li>
+						<li><a href="<?php echo SERVERURL; ?>cuenta/">Mi Cuenta</a></li>
+					<?php else: ?>
+						<li><a href="<?php echo SERVERURL; ?>login/">Iniciar sesión</a></li>
+						<li><a href="<?php echo SERVERURL; ?>registro/">Registrarse</a></li>
+					<?php endif; ?>
 				</ul>
 			</nav>
 		</div>
@@ -83,7 +102,7 @@
 						</form>
 					</div>
 					<div class="shopping-cart">
-						<a href="#"><img src="<?php echo SERVERURL; ?>vistas/assets/img/carrito.png" alt=""></a>
+						<a href="<?php echo SERVERURL; ?>carrito/"><img src="<?php echo SERVERURL; ?>vistas/assets/img/carrito.png" alt=""></a>
 					</div>
 				</div>
 			</div>

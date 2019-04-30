@@ -118,7 +118,7 @@
 			return $sql;
 		}
 
-		protected function verificar_institucion_empresas($telefono){
+		protected function verificar_telefono_empresas($telefono){
 			$sql=mainModel::conectar()->prepare("SELECT telefono FROM empresas WHERE telefono = :Telefono");
 			$sql->bindParam(":Telefono",$telefono);
 			$sql->execute();
@@ -126,9 +126,16 @@
 		}
 
 		protected function agregar_cuenta_empresarial($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO clientes(nombre,apellido,correo,clave,fecha_registro) VALUES (:Nombre,:Apellidos,:Correo,:Clave,:Fecha);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO empresas(nombre,apellido,dpi,institucion,nit,direccion,departamento,ciudad,telefono,correo,clave,fecha_registro) VALUES (:Nombre,:Apellido,:Dpi,:Institucion,:Nit,:Direccion,:Departamento,:Ciudad,:Telefono,:Correo,:Clave,:Fecha);");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
-			$sql->bindParam(":Apellidos",$datos['Apellidos']);
+			$sql->bindParam(":Apellido",$datos['Apellido']);
+			$sql->bindParam(":Dpi",$datos['Dpi']);
+			$sql->bindParam(":Institucion",$datos['Institucion']);
+			$sql->bindParam(":Nit",$datos['Nit']);
+			$sql->bindParam(":Direccion",$datos['Direccion']);
+			$sql->bindParam(":Departamento",$datos['Departamento']);
+			$sql->bindParam(":Ciudad",$datos['Ciudad']);
+			$sql->bindParam(":Telefono",$datos['Telefono']);
 			$sql->bindParam(":Correo",$datos['Correo']);
 			$sql->bindParam(":Clave",$datos['Clave']);
 			$sql->bindParam(":Fecha",$datos['Fecha']);

@@ -1,7 +1,10 @@
-<?php 
-		require_once "./controladores/homeControlador.php";
-		$instaciaHome = new homeControlador();
+	<?php		
+		if ($loginUsuario)
+		{
+			echo '<script> window.location="'.SERVERURL.'" </script>';
+		}
 	?>
+	
 	<main class="full-width">
 
 		<style type="text/css">
@@ -77,8 +80,20 @@
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro{text-align:center;margin-top: 15px;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro a{color:#777575;text-decoration:none;}
 			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro a:hover{text-decoration:underline;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .RespuestaAjax{padding: 20px 0px;}
 
-			.registro-contenedor .registro-contenido .registro-contenido-row.row-2{background-color:#ec110b;color:#fff;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2{background-color:#2a4964;color:#fff;padding: 120px 20px 120px 20px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .logo{text-align:center;margin-bottom:30px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .logo > img{width:220px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .empresarial{background-color:#89da3e;margin-bottom: 50px;padding: 3px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .empresarial > p{color:#2a4964;text-align:center;font-weight:bold;font-size:14pt;text-transform:uppercase;letter-spacing:5px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios > p{padding:0px 20px;text-align:center;font-weight:bold;font-size:14pt;margin-bottom:50px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios{padding:0px 100px 0px 120px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio{display:flex;flex-flow:row nowrap;align-items:center;margin-bottom:30px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .icono{width:60px;flex: 0 0 auto;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .icono img{width:100%;display: block;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .texto{flex: 1 1 auto;padding-left:20px;}
+			.registro-contenedor .registro-contenido .registro-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .texto p{font-size: 16pt;width: 100%;}
 		</style>
 
 		<div class="value-proposal-box sombra-inferior">
@@ -195,7 +210,7 @@
 				</div>
 				<div class="registro-contenido-row row-2">
 					<div class="logo">
-						<img src="3" alt="Smart Office Solutions">
+						<img src="<?php echo SERVERURL; ?>vistas/assets/img/logo.png" alt="Smart Office Solutions">
 					</div>
 					<div class="empresarial">
 						<p>Empresarial</p>
@@ -204,16 +219,16 @@
 						<p>Crea una cuenta empresarial en gosmartoffice.com para que tu empresa crezca con la solución adecuada:</p>
 						<div class="lista-beneficios">
 							<div class="beneficio">
-								<div class="icono"><img src="a" alt="a"></div>
+								<div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/garantia-empresarial.png"></div>
 								<div class="texto"><p>Acceso a planes de protección extendida.</p></div>
 							</div>
 							<div class="beneficio">
-								<div class="icono"><img src="a" alt="a"></div>
+								<div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/soporte-empresarial.png"></div>
 								<div class="texto"><p>Asesoría personalizada en todas tus compras.</p></div>
 							</div>
 							<div class="beneficio">
-								<div class="icono"><img src="a" alt="a"></div>
-								<div class="texto"><p>información en línea de productos mejorada.</p></div>
+								<div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/website-empresarial.png"></div>
+								<div class="texto"><p>Información en línea de productos mejorada.</p></div>
 							</div>
 						</div>
 					</div>

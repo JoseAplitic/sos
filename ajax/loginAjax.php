@@ -1,8 +1,13 @@
 <?php
 	$peticionAjax=true;
-	require_once "../core/configGeneral.php";
-	session_start(['name'=>'adminsoswebstore']);
-	session_destroy();
-	setcookie('usuario','',time()-3600,'/');
-	setcookie('clave','',time()-3600,'/');
-	echo "true";
+
+	if(isset($_POST['correo']) && isset($_POST['password']))
+	{
+		require_once "../core/configGeneral.php";
+		require_once "../controladores/loginControlador.php";
+		$instancia = new loginControlador();
+		echo $instancia->iniciar_sesion_controlador();
+	}
+	else {
+		echo "¡Ha ocurrido un error!";
+	}

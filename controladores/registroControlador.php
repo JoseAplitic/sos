@@ -48,7 +48,10 @@
                                     $guardarCuenta=registroModelo::agregar_cuenta_personal($dataAC);
                                     if($guardarCuenta->rowCount()>=1)
                                     {
-                                        echo "Registro realizado";
+                                        $peticionAjax = true;
+                                        require_once "../controladores/loginControlador.php";
+                                        $login = new loginControlador();
+                                        echo $login->iniciar_sesion_automatica_controlador($correo, $password, "personal", "registro-exitoso/");
                                     }
                                     else
                                     {
@@ -136,24 +139,34 @@
                                                     }
                                                     else
                                                     {
-                                                        // $fecha=date("d/m/Y");
-                                                        // $clave=mainModel::encryption($password);
-                                                        // $dataAC=[
-                                                        //     "Nombre"=>$nombre,
-                                                        //     "Apellidos"=>$apellidos,
-                                                        //     "Correo"=>$correo,
-                                                        //     "Clave"=>$clave,
-                                                        //     "Fecha"=>$fecha
-                                                        // ];
-                                                        // $guardarCuenta=registroModelo::agregar_cuenta_empresarial($dataAC);
-                                                        // if($guardarCuenta->rowCount()>=1)
-                                                        // {
-                                                        //     echo "Registro realizado";
-                                                        // }
-                                                        // else
-                                                        // {
-                                                        //     echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
-                                                        // }
+                                                        $fecha=date("d/m/Y");
+                                                        $clave=mainModel::encryption($password);
+                                                        $dataAC=[
+                                                            "Nombre"=>$nombre,
+                                                            "Apellido"=>$apellidos,
+                                                            "Dpi"=>$dpi,
+                                                            "Institucion"=>$institucion,
+                                                            "Nit"=>$nit,
+                                                            "Direccion"=>$direccion,
+                                                            "Departamento"=>$departamento,
+                                                            "Ciudad"=>$ciudad,
+                                                            "Telefono"=>$telefono,
+                                                            "Correo"=>$correo,
+                                                            "Clave"=>$clave,
+                                                            "Fecha"=>$fecha
+                                                        ];
+                                                        $guardarCuenta=registroModelo::agregar_cuenta_empresarial($dataAC);
+                                                        if($guardarCuenta->rowCount()>=1)
+                                                        {                                                       
+                                                            $peticionAjax = true;
+                                                            require_once "../controladores/loginControlador.php";
+                                                            $login = new loginControlador();
+                                                            echo $login->iniciar_sesion_automatica_controlador($correo, $password, "empresarial", "registro-exitoso/");
+                                                        }
+                                                        else
+                                                        {
+                                                            echo "¡Ha ocurrido un error! Intenta más tarde por favor.";
+                                                        }
                                                     }
                                                 }
                                             }
