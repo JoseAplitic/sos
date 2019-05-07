@@ -97,5 +97,116 @@
 			}
 			return $regla;
 		}
+		
+		public function obtener_descuentos_producto($sku, $relaciones, $precio, $tipo)
+		{
+			$descuentos = array();
+
+			$tipoUsuario = "regla_visitantes";
+			if ($tipo == "invitado"){$tipoUsuario = "regla_visitantes";}
+			elseif ($tipo == "personal"){$tipoUsuario = "regla_usuarios";}
+			elseif ($tipo == "empresarial") {$tipoUsuario = "regla_empresas";}
+			else {$tipoUsuario = "regla_visitantes";}
+
+			$descuentoProductoSku = productoModelo::verificar_descuento_modelo($sku, "producto");
+			if ($descuentoProductoSku->rowCount()>0)
+			{
+				$datosDescuento = $descuentoProductoSku->fetchAll();
+				foreach ($datosDescuento as $descuento)
+				{
+					$infoDescuento = productoModelo::obtener_info_descuento_modelo($descuento['id_descuento'], $tipoUsuario);
+					if ($infoDescuento->rowCount()>0)
+					{
+						$infoDescuento = $infoDescuento->fetch();
+						$hoy = date("Y-m-d");
+						if ($hoy>=$infoDescuento[2] && $hoy<=$infoDescuento[3])
+						{
+							$precioFinal = $precio;
+							if($infoDescuento[0]=="porcentaje")
+							{
+								$precioFinal = $precio - (($precio * $infoDescuento[1])/100);
+							}
+							elseif($infoDescuento[0]=="fijo")
+							{
+								$precioFinal = $precio - $infoDescuento[1];
+							}
+							else
+							{
+								$precioFinal = $precio;
+							}
+							$descuentosInsertar = [
+								"tipo" => $infoDescuento[0],
+								"regla" => $infoDescuento[1],
+								"inicio" => $infoDescuento[2],
+								"vencimiento" => $infoDescuento[3],
+								"precio_final" => $precioFinal
+							];
+							array_push($descuentos, $descuentosInsertar);
+						}
+					}
+				}
+			}
+
+			foreach ($relaciones as $relacion)
+			{
+				$descuentoProductoRelacion = productoModelo::verificar_descuento_modelo($relacion['id'], $relacion['taxonomia']);
+				if ($descuentoProductoRelacion->rowCount()>0)
+				{
+					$datosDescuento = $descuentoProductoRelacion->fetchAll();
+					foreach ($datosDescuento as $descuento)
+					{
+						$infoDescuento = productoModelo::obtener_info_descuento_modelo($descuento['id_descuento'], $tipoUsuario);
+						if ($infoDescuento->rowCount()>0)
+						{
+							$infoDescuento = $infoDescuento->fetch();
+							$hoy = date("Y-m-d");
+							if ($hoy>=$infoDescuento[2] && $hoy<=$infoDescuento[3])
+							{
+								$precioFinal = $precio;
+								if($infoDescuento[0]=="porcentaje")
+								{
+									$precioFinal = $precio - (($precio * $infoDescuento[1])/100);
+								}
+								elseif($infoDescuento[0]=="fijo")
+								{
+									$precioFinal = $precio - $infoDescuento[1];
+								}
+								else
+								{
+									$precioFinal = $precio;
+								}
+								$descuentosInsertar = [
+									"tipo" => $infoDescuento[0],
+									"regla" => $infoDescuento[1],
+									"inicio" => $infoDescuento[2],
+									"vencimiento" => $infoDescuento[3],
+									"precio_final" => $precioFinal
+								];
+								array_push($descuentos, $descuentosInsertar);
+							}
+						}
+					}
+				}
+			}
+
+			$start = true;
+			$descuentoSeleccionado = array();
+
+			foreach ($descuentos as $descuento)
+			{
+				if ($start == true)
+				{
+					$descuentoSeleccionado = $descuento;
+					$start = false;
+				}
+
+				if ($descuento['precio_final']<$descuentoSeleccionado['precio_final'])
+				{
+					$descuentoSeleccionado = $descuento;
+				}
+			}
+
+			return $descuentoSeleccionado;
+		}
 
 	}

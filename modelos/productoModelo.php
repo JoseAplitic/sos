@@ -42,4 +42,21 @@
 			$sql->execute();
 			return $sql;
 		}
+		
+		protected function verificar_descuento_modelo($item, $tipo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT id_descuento FROM descuentos_relaciones WHERE item=:Item AND tipo=:Tipo;");
+			$sql->bindParam(":Item",$item);
+			$sql->bindParam(":Tipo",$tipo);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function obtener_info_descuento_modelo($id, $tipo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT tipo_descuento, $tipo, inicio, vencimiento FROM descuentos WHERE id=:Id");
+			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
 	}

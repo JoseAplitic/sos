@@ -16,18 +16,47 @@
     }
 
     $tipo = "";
+    $id_usuario = "";
     if (isset($_COOKIE['user_tipo']))
     {
         $tipo = $_COOKIE['user_tipo'];
+        $id_usuario = $_SESSION['user_id'];
     }
     else
     {
         $tipo = "invitado";
     }
 
+    $textoDescuento = "";
     $precio = 0;
+    $descuento = $instanciaProducto->obtener_descuentos_producto($datosProducto['sku'],$productoRelaciones,$datosProducto['precio'],$tipo);
+    $precio = $datosProducto['precio'];
     $regla = $instanciaProducto->obtener_regla_precio($categoria, $tipo);
-    $precio = ($regla * $datosProducto['precio']) + $datosProducto['precio'];
+    if (count($descuento)>0)
+    {
+        $precioRegular = ($regla * $precio) + $precio;
+        $precioRegular = number_format($precioRegular,2);
+        $precio = $descuento['precio_final'];
+        $precioCliente = ($regla * $precio) + $precio;
+        $precioCliente = number_format($precioCliente,2);
+        $ahorro = $precioRegular - $precioCliente;
+        $ahorro = number_format($ahorro,2);
+
+        $textoDescuento = '<div class="descuento">Precio Reg. Q'.$precioRegular.'. Ahorra Q'.$ahorro;
+        if ($descuento['tipo']=="porcentaje")
+        {
+            $textoDescuento .= ' ('.$descuento['regla'].'% de descuento)';
+        }
+        elseif ($descuento['tipo']=="fijo")
+        {
+            $porcentaje = ($ahorro/$precioRegular)*100;
+            $porcentaje = number_format($porcentaje,0);
+            $textoDescuento .= ' ('.$porcentaje.'% de descuento)';
+        }
+        $textoDescuento .= '</div>';
+        $precio = $descuento['precio_final'];
+    }
+    $precio = ($regla * $precio) + $precio;
     $precio = number_format($precio,2);
 ?>
 
@@ -44,8 +73,7 @@
     .breadcumb ol li:after{content: ":";display: inline-block;margin-left:5px;}
     .breadcumb ol li:last-child:after{display: none;}
 
-    .show {width: 100%;height: auto;border: 1px solid #dddddd;}
-    .show img{display:block;width:100%;}
+    .show img{}
     .small-img {width: 100%;height: 70px;margin-top: 10px;position: relative;}
     .small-img .icon-left, .small-img .icon-right {width: 12px;height: 24px;cursor: pointer;position: absolute;top: 0;bottom: 0;margin: auto 0;z-index:1;}
     .small-img .icon-left {transform: rotate(180deg)}
@@ -66,7 +94,7 @@
     .producto-contenedor .row{display:flex;flex-flow:row wrap;margin-bottom:30px;}
     .producto-contenedor .row .column{width:50%;}
     .producto-contenedor .row .column.detalles{padding-left:20px;}
-    .producto-contenedor .row .column.detalles>div{margin-bottom:20px;}
+    .producto-contenedor .row .column.detalles>div{margin-bottom:10px;}
     .producto-contenedor .row .column.detalles .precio{color:#ec110b;font-size:28pt;font-weight:bold;}
 
     .detalles-tabs #tabs ul{display:flex;flex-flow:row wrap;list-style:none;border: 1px solid #dcdcdc;width:max-content;margin-bottom:-1px;}
@@ -74,7 +102,16 @@
     .detalles-tabs #tabs ul li:last-child{border-right-width:0px;}
     .detalles-tabs #tabs ul li:hover{cursor:pointer;}
     .detalles-tabs #tabs ul li.selected{background-color:#ec110b;}
-    .detalles-tabs #tabs div{padding:20px;border: 1px solid #dcdcdc;}
+    .detalles-tabs #tabs > div{padding:20px;border: 1px solid #dcdcdc;}
+
+    .yellow{color: #ffbe00;}
+    .gray{color: #6b6b6b;}
+
+    .zoom {display:block;width: 100%;height: auto;border: 1px solid #dddddd;}
+    .zoom:hover {cursor:zoom-in;}
+    .zoom img{display:block;width:100%;}
+    .zoom:after {content:'';display:block;width:32px;height:32px;position:absolute;bottom:10px;right:10px;background:url(<?php echo SERVERURL; ?>vistas/assets/img/zoom-icon.png);background-size: cover;}
+    .zoomImg{background:#fff;}
 </style>
 
 <main>
@@ -122,9 +159,9 @@
 
         <div class="row">
             <div class="column galeria">
-                <div class="show" href="<?php echo PRODUCTOSURL.$datosProducto['sku'].'.jpg'; ?>">
-                    <img src="<?php echo PRODUCTOSURL.$datosProducto['sku'].'.jpg'; ?>" id="show-img" alt="<?php echo $datosProducto['nombre']; ?>">
-                </div>
+                <span class='zoom' id='imagen-producto'>
+                    <img src='<?php echo PRODUCTOSURL.$datosProducto['sku'].'.jpg'; ?>' id='show-img'  alt='<?php echo $datosProducto['nombre']; ?>'/>
+                </span>
                 <div class="small-img">
                     <img src="<?php echo SERVERURL; ?>vistas/assets/img/chevron.png" class="icon-left" id="prev-img">
                     <div class="small-container">
@@ -142,9 +179,36 @@
                 <div class="precio">
                     <p>Q <?php echo $precio; ?></p>
                 </div>
-                <div class="calificacion"></div>
+                <?php
+
+                    echo $textoDescuento;
+
+                    if ($datosProducto['calificacion']>0)
+                    {
+                        echo '<div class="calificacion">';
+                        $yellow = $datosProducto['calificacion'];
+                        $gray = 5 - $datosProducto['calificacion'];
+                        for ($i=1; $i <= $yellow; $i++)
+                        { 
+                            echo '<i class="fas fa-star yellow"></i>';
+                        }
+                        for ($i=1; $i <= $gray; $i++)
+                        { 
+                            echo '<i class="fas fa-star gray"></i>';
+                        }
+                        echo '</div>';
+                    }
+                ?>
+                <div class="producto-descripcion-divisor"></div>
                 <div class="agregar-carrito">
-                    
+                    <form id="agregarCarrito" action="<?php echo SERVERURL; ?>ajax/carritoAjax.php" method="POST" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
+                        <input type="hidden" name="accion" value="agregar">
+                        <input type="hidden" name="tipo_usuario" value="<?php echo $tipo; ?>">
+                        <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
+                        <input type="hidden" name="producto" value="<?php echo $datosProducto['sku']; ?>">
+                        <button type="submit" form="agregarCarrito" value="Submit"><span>Agregar al carrito</span></button>
+                        <div class="RespuestaAjax"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -154,8 +218,7 @@
                 <ul>
                     <li>Descripción general</li>
                     <li>Especificaciones</li>
-                    <li>Garantía</li>
-                    <li>Reseñas</li>
+                    <?php if ($datosProducto['calificacion']>0){echo "<li>Evaluación Smart</li>";} ?>
                 </ul>
 
                 <div>
@@ -165,14 +228,27 @@
                 <div>
                     <?php echo $datosProducto['especificaciones']; ?>
                 </div>
-
-                <div>
-                    Garantía
-                </div>
-
-                <div>
-                    Reseñas
-                </div>
+                
+                <?php
+                    if ($datosProducto['calificacion']>0)
+                    {
+                        echo '<div>';
+                        echo '<div class="calificacion"><p>Calificación:</p>';
+                        $yellow = $datosProducto['calificacion'];
+                        $gray = 5 - $datosProducto['calificacion'];
+                        for ($i=1; $i <= $yellow; $i++)
+                        { 
+                            echo '<i class="fas fa-star yellow"></i>';
+                        }
+                        for ($i=1; $i <= $gray; $i++)
+                        { 
+                            echo '<i class="fas fa-star gray"></i>';
+                        }
+                        echo '</div>';
+                        echo '<div class="justificacion">'.$datosProducto['justificacion'].'</div>';
+                        echo '</div>';
+                    }
+                ?>
             </div>
         </div>
 
@@ -180,17 +256,17 @@
 
 </main>
 
-<script src="<?php echo SERVERURL; ?>vistas/js/zoom-image.js"></script>
+<script src="<?php echo SERVERURL; ?>vistas/js/jquery.zoom.min.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/js/jquery.tabs.js"></script>
 <script>
-    $('.show').zoomImage();
+    $('#imagen-producto').zoom({ on:'click', magnify: 2 });
 
     $('.show-small-img:first-of-type').css({'border': 'solid 1px #ec110b', 'padding': '2px'})
-    $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt')
+    $('.show-small-img:first-of-type').attr('alt', '<?php echo $datosProducto['nombre']; ?>').siblings().removeAttr('alt')
     $('.show-small-img').click(function () {
     $('#show-img').attr('src', $(this).attr('src'))
-    $('#big-img').attr('src', $(this).attr('src'))
-    $(this).attr('alt', 'now').siblings().removeAttr('alt')
+    $('.zoomImg').attr('src', $(this).attr('src'))
+    $(this).attr('alt', '<?php echo $datosProducto['nombre']; ?>').siblings().removeAttr('alt')
     $(this).css({'border': 'solid 1px #ec110b', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
     if ($('#small-img-roll').children().length > 4) {
         if ($(this).index() >= 3 && $(this).index() < $('#small-img-roll').children().length - 1){
@@ -204,14 +280,14 @@
     })
 
     $('#next-img').click(function (){
-    $('#show-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
-    $('#big-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
-    $(".show-small-img[alt='now']").next().css({'border': 'solid 1px #ec110b', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
-    $(".show-small-img[alt='now']").next().attr('alt', 'now').siblings().removeAttr('alt')
+    $('#show-img').attr('src', $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").next().attr('src'))
+    $('.zoomImg').attr('src', $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").next().attr('src'))
+    $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").next().css({'border': 'solid 1px #ec110b', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+    $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").next().attr('alt', '<?php echo $datosProducto['nombre']; ?>').siblings().removeAttr('alt')
     if ($('#small-img-roll').children().length > 4) {
-        if ($(".show-small-img[alt='now']").index() >= 3 && $(".show-small-img[alt='now']").index() < $('#small-img-roll').children().length - 1){
-        $('#small-img-roll').css('left', -($(".show-small-img[alt='now']").index() - 2) * 76 + 'px')
-        } else if ($(".show-small-img[alt='now']").index() == $('#small-img-roll').children().length - 1) {
+        if ($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() >= 3 && $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() < $('#small-img-roll').children().length - 1){
+        $('#small-img-roll').css('left', -($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() - 2) * 76 + 'px')
+        } else if ($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() == $('#small-img-roll').children().length - 1) {
         $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
         } else {
         $('#small-img-roll').css('left', '0')
@@ -220,14 +296,14 @@
     })
 
     $('#prev-img').click(function (){
-    $('#show-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
-    $('#big-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
-    $(".show-small-img[alt='now']").prev().css({'border': 'solid 1px #ec110b', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
-    $(".show-small-img[alt='now']").prev().attr('alt', 'now').siblings().removeAttr('alt')
+    $('#show-img').attr('src', $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").prev().attr('src'))
+    $('.zoomImg').attr('src', $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").prev().attr('src'))
+    $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").prev().css({'border': 'solid 1px #ec110b', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+    $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").prev().attr('alt', '<?php echo $datosProducto['nombre']; ?>').siblings().removeAttr('alt')
     if ($('#small-img-roll').children().length > 4) {
-        if ($(".show-small-img[alt='now']").index() >= 3 && $(".show-small-img[alt='now']").index() < $('#small-img-roll').children().length - 1){
-        $('#small-img-roll').css('left', -($(".show-small-img[alt='now']").index() - 2) * 76 + 'px')
-        } else if ($(".show-small-img[alt='now']").index() == $('#small-img-roll').children().length - 1) {
+        if ($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() >= 3 && $(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() < $('#small-img-roll').children().length - 1){
+        $('#small-img-roll').css('left', -($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() - 2) * 76 + 'px')
+        } else if ($(".show-small-img[alt='<?php echo $datosProducto['nombre']; ?>']").index() == $('#small-img-roll').children().length - 1) {
         $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
         } else {
         $('#small-img-roll').css('left', '0')
