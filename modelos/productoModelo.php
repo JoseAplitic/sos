@@ -59,4 +59,12 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function obtener_relacionados_modelo($sku, $relacion){
+			$sql=mainModel::conectar()->prepare("SELECT sku FROM relaciones WHERE id_taxonomia = :Relacion AND sku!=:Sku");
+			$sql->bindParam(":Relacion",$relacion);
+			$sql->bindParam(":Sku",$sku);
+			$sql->execute();
+			return $sql;
+		}
 	}

@@ -96,13 +96,26 @@
     .producto-contenedor .row .column.detalles{padding-left:20px;}
     .producto-contenedor .row .column.detalles>div{margin-bottom:10px;}
     .producto-contenedor .row .column.detalles .precio{color:#ec110b;font-size:28pt;font-weight:bold;}
+    .producto-contenedor .row .column.detalles .descuento{color:#9e9d9d;}
+    .producto-contenedor .row .column.detalles .calificacion{margin-top: 10px}
+    .producto-descripcion-divisor{border-bottom:1px solid #e2e1e1;margin: 20px 0px;}
+    .producto-contenedor .row .column.detalles .agregar-carrito{background-color:#f2f2f2;padding:20px;margin-top:20px;}
+    .producto-contenedor .row .column.detalles .agregar-carrito button{display:block;background-color:#ffe000;color:#1a1818;padding:10px 75px;border-width: 0px;margin:0px auto;border-radius:3px;}
+    .producto-contenedor .row .column.detalles .agregar-carrito button:hover{outline:0px;background-color:#f7d900;cursor:pointer;}
+    .producto-contenedor .row .column.detalles .agregar-carrito button:focus{outline:0px;background-color:#f2d501;}
+    .producto-contenedor .row .column.detalles .agregar-carrito button img{width:25px;}
+    .producto-contenedor .row .column.detalles .agregar-carrito button span{text-transform:uppercase;font-weight:bolder;margin-left:10px;position: relative;top: -5px;font-size: 12pt;}
 
+    .detalles-tabs{margin-bottom:20px;}
     .detalles-tabs #tabs ul{display:flex;flex-flow:row wrap;list-style:none;border: 1px solid #dcdcdc;width:max-content;margin-bottom:-1px;}
     .detalles-tabs #tabs ul li{text-transform:uppercase;background-color:#ababab;border-right: 1px solid #dcdcdc;padding:20px;color:#fff;font-weight:bold;}
     .detalles-tabs #tabs ul li:last-child{border-right-width:0px;}
     .detalles-tabs #tabs ul li:hover{cursor:pointer;}
     .detalles-tabs #tabs ul li.selected{background-color:#ec110b;}
     .detalles-tabs #tabs > div{padding:20px;border: 1px solid #dcdcdc;}
+    .detalles-tabs #tabs > div .calificacion{padding-bottom:10px;border-bottom:1px solid #d5d5d5}
+    .detalles-tabs #tabs > div .estrellas{margin-top:10px;}
+    .detalles-tabs #tabs > div .justificacion{padding-top:20px;}
 
     .yellow{color: #ffbe00;}
     .gray{color: #6b6b6b;}
@@ -112,6 +125,31 @@
     .zoom img{display:block;width:100%;}
     .zoom:after {content:'';display:block;width:32px;height:32px;position:absolute;bottom:10px;right:10px;background:url(<?php echo SERVERURL; ?>vistas/assets/img/zoom-icon.png);background-size: cover;}
     .zoomImg{background:#fff;}
+
+    .productos-relacionados{width: 100%;border: 1px solid #d2d2d2;display: flex;flex-flow: column nowrap;}
+    .productos-relacionados > .title{background-color: #ffeae9;padding: 17px 15px;border-bottom: 1px solid #d2d2d2;color: #000;flex: 0 0;}
+    .productos-relacionados > .title p{font-size: 18px;text-transform: uppercase;font-weight: bold;}
+    .productos-relacionados .relacionados-items{flex: 1 0;display: flex;flex-flow: column nowrap;justify-content: center;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow{padding: 0px 50px;position: relative;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow > a{position: absolute;top: calc(50% - 24px);color: #ff110b;font-size: 48px;-webkit-transition: color 0.3s;transition: color 0.3s;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow > a:hover{color: #d00d08;-webkit-transition: color 0.3s;transition: color 0.3s;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow > #prev{left: 10px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow > #next{right: 10px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product{padding: 10px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-image{margin-bottom: 20px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-image img{width: 100%;display: block;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description{color: #000;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .title{margin-bottom: 10px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .rated{margin-bottom: 10px;display: flex;flex-flow: row wrap;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .rated i{margin-right: 5px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .rated i:last-child{margin-right: 0px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .title a{color: #000;text-decoration: none;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .title a:hover{color: #ec110b;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .price{display: flex;flex-flow: row wrap;align-items:flex-start;font-weight: bold;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .price .currency,
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .price .units{font-size: 32px;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .price .decimals{font-size: 16px;line-height: 1.55;}
+    .productos-relacionados .relacionados-items .relacionados-slideshow .relacionados-item .product .product-description .legend{font-size: 14px;font-weight: bold;}
 </style>
 
 <main>
@@ -134,7 +172,18 @@
 
         <div class="titulo">
             <h2><?php echo $datosProducto['nombre']; ?></h2>
-            <p>SKU: <?php echo $datosProducto['sku']; ?> Número de parte: <?php echo $datosProducto['mpn']; ?></p>
+            <p>
+                <?php
+                    if($datosProducto['sku']!="")
+                    {
+                        echo "SKU: ".$datosProducto['sku'];
+                    }
+                    if ($datosProducto['mpn']!="")
+                    {
+                        echo " Número de parte: ".$datosProducto['mpn'];
+                    }
+                ?>
+            </p>
         </div>
 
         <?php
@@ -206,7 +255,7 @@
                         <input type="hidden" name="tipo_usuario" value="<?php echo $tipo; ?>">
                         <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
                         <input type="hidden" name="producto" value="<?php echo $datosProducto['sku']; ?>">
-                        <button type="submit" form="agregarCarrito" value="Submit"><span>Agregar al carrito</span></button>
+                        <button type="submit" form="agregarCarrito" value="Submit"><img src="<?php echo SERVERURL; ?>vistas/assets/img/carrito-boton.png" alt="Agregar al carrito"><span>Agregar al carrito</span></button>
                         <div class="RespuestaAjax"></div>
                     </form>
                 </div>
@@ -236,6 +285,7 @@
                         echo '<div class="calificacion"><p>Calificación:</p>';
                         $yellow = $datosProducto['calificacion'];
                         $gray = 5 - $datosProducto['calificacion'];
+                        echo '<div class="estrellas">';
                         for ($i=1; $i <= $yellow; $i++)
                         { 
                             echo '<i class="fas fa-star yellow"></i>';
@@ -244,13 +294,74 @@
                         { 
                             echo '<i class="fas fa-star gray"></i>';
                         }
-                        echo '</div>';
+                        echo '</div></div>';
                         echo '<div class="justificacion">'.$datosProducto['justificacion'].'</div>';
                         echo '</div>';
                     }
                 ?>
             </div>
         </div>
+        <?php
+            $relacionados = $instanciaProducto->obtener_relacionados_producto($datosProducto['sku'],$productoRelaciones);
+            if(count($relacionados)>0):
+                require_once "./controladores/cargarListaProductosControlador.php";
+                $instanciaCargarProductos = new cargarListaProductosControlador();
+        ?>
+        <div class="productos-relacionados">
+            <div class="title">
+                <p>Productos relacionados</p>
+            </div>
+            <div class="relacionados-items">
+                <div class="relacionados-slideshow">
+                    <?php 
+                        $productosRelacionados = $instanciaCargarProductos->cargar_lista_productos($relacionados);
+                        foreach ($productosRelacionados as $imprimir)
+                        {
+                            $rated="";
+                            if ($imprimir['calificacion']>0)
+                            {
+                                $rated .= '<div class="rated">';
+                                $yellow = $imprimir['calificacion'];
+                                $gray = 5 - $imprimir['calificacion'];
+                                for ($i=1; $i <= $yellow; $i++)
+                                { 
+                                    $rated .= '<i class="fas fa-star yellow"></i>';
+                                }
+                                for ($i=1; $i <= $gray; $i++)
+                                { 
+                                    $rated .= '<i class="fas fa-star gray"></i>';
+                                }
+                                $rated .= '</div>';
+                            }
+                            $precioImprimir = number_format($imprimir['precio'],2);
+                            $separar = explode(".",$precioImprimir);
+                            $unidades = $separar[0];
+                            $decimales = $separar[1];
+                            echo '<div class="relacionados-item">
+                                    <div class="product">
+                                        <div class="product-image">
+                                            <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="" alt="'.$imprimir['nombre'].'"></a>
+                                        </div>
+                                        <div class="product-description">
+                                            <div class="title"><a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><h3>'.$imprimir['nombre'].'</h3></a></div>
+                                            '.$rated.'
+                                            <div class="price">
+                                                <p class="currency">Q.</p>
+                                                <p class="units">'.$unidades.'.</p>
+                                                <p class="decimals">'.$decimales.'</p>
+                                            </div>
+                                            <div class="legend">
+                                                <p>Precio de contado</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
 
     </div>
 
@@ -314,4 +425,5 @@
     $(document).ready( function() {
         tabify( '#tabs' );
     });
+    
 </script>

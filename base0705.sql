@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2019 a las 12:41:03
+-- Tiempo de generación: 08-05-2019 a las 07:31:05
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -140,7 +140,7 @@ INSERT INTO `descuentos` (`id`, `nombre`, `descripcion`, `tipo_descuento`, `regl
 (2, 'aasdf', '', 'porcentaje', '12', '13', '14', '2019-03-17', '2019-03-28'),
 (3, 'Desca', '', 'porcentaje', '0', '0', '0', '2019-03-11', '2019-03-11'),
 (4, 'Descuento para pruebas', 'Descuento para pruebas', 'porcentaje', '0', '50', '0', '2019-05-07', '2019-05-31'),
-(5, 'id_descuento pruebas', 'id_descuento pruebas', 'fijo', '0', '6', '8', '2019-05-07', '2019-05-31');
+(5, 'id_descuento pruebas', 'id_descuento pruebas', 'fijo', '3', '6', '8', '2019-05-07', '2019-05-31');
 
 -- --------------------------------------------------------
 
@@ -274,8 +274,8 @@ CREATE TABLE `productos` (
   `fabricante` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `tipo` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `nuevo` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `precio` decimal(11,0) NOT NULL,
-  `stock` int(20) DEFAULT NULL,
+  `precio` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `stock` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `oferta` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `calificacion` varchar(5) COLLATE utf8_spanish2_ci NOT NULL,
   `justificacion` longtext COLLATE utf8_spanish2_ci NOT NULL,
@@ -287,28 +287,29 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`sku`, `nombre`, `slug`, `descripcion`, `especificaciones`, `mpn`, `fabricante`, `tipo`, `nuevo`, `precio`, `stock`, `oferta`, `calificacion`, `justificacion`, `fecha`) VALUES
-('A Final', 'A Final', 'a-final', '<p>A Final</p>', '<p>A Final</p>', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:57:40'),
-('AAAAAAAA', 'AAAAAAAAA', 'aaaaaaaaa', '', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:31:53'),
-('ahora si', 'nombre de ahora si', 'nombre-de-ahora-si', '<p>descripcion de ahora si</p>', '<p><span style=\"color:#afafaf\">especificaciones de ahora si</span></p>\r\n\r\n<p><input alt=\"\" src=\"http://localhost/sosadmin/productos/banner.jpg\" style=\"width: 100%\" type=\"image\" /></p>', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:58:16'),
-('asdf', '213', '213', 'asdfsadf', '', '', '', '', 'no', '12', 0, 'no', '', '', '2019/02/15 23:22:16'),
-('asdfasdf', 'asdfsadf2', 'asdfsadf2', 'asdfsadf', '<p>ASDASD</p>', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:43:54'),
-('asdfasdfasdf', 'asdfsadf', 'asdfsadf', 'asdfsdf', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:34:12'),
-('asdffsadfas', 'asdffasdfasd', 'asdffasdfasd', '', '', '', '', '', 'no', '0', 0, 'no', '5', '<p>asdfasdf</p>', '2019/05/02 01:48:16'),
-('Calificacion', 'Calificacion', 'calificacion', '', '', '', '', '', 'no', '0', 0, 'no', '3', '', '2019/05/02 01:49:11'),
-('Calificacion2', 'Calificacion2', 'calificacion2', '<p><span style=\"font-size:20px\">asdfasdfasdf</span></p>', '', '', '', '', 'no', '0', 0, 'no', '3', '<p>Justificacion</p>', '2019/05/02 01:49:49'),
-('dasfasdf', '213123', '213123', 'asdfas', '', '', '', '', 'no', '11', 0, 'no', '', '', '2019/02/18 22:25:46'),
-('eva', 'eva', 'eva', '', '', '', '', '', 'no', '0', 0, 'no', '5', '', '2019/05/02 01:43:25'),
-('Final', 'Final', 'final', '', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:56:26'),
-('PR', 'PR', 'pr', '', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/02 21:15:25'),
-('Preuaba con script', 'Preuaba con script', 'preuaba-con-script', 'Preuaba con script', '<p>Preuaba con script</p>', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:52:51'),
-('Productazo', 'Porductazo', 'porductazo', '<p style=\"text-align:center\">Es un producto descripcion</p>', '<p>Es un producto</p>', '123', '', '', 'no', '12', 0, 'no', '4', '<p>Es la verga</p>', '2019/04/15 21:45:24'),
-('Prueba', 'adsf', 'adsf', 'asdf', '', '', '', '', 'no', '12', 0, 'no', '', '', '2019/02/15 22:54:38'),
-('Prueba Con Especificaciones', 'Prueba Con Especificaciones', 'prueba-con-especificaciones', 'Prueba Con Especificaciones', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:44:43'),
-('Prueba Con Especificaciones 2', 'Prueba Con Especificaciones 2', 'prueba-con-especificaciones-2', 'ASDF', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:46:47'),
-('Prueba con guardado', 'Prueba con guardado', 'prueba-con-guardado', 'Prueba con guardado', '<p>Prueba con guardado</p>', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:47:46'),
-('Prueba de especificaiones', 'Prueba de especificaiones', 'prueba-de-especificaiones', 'Prueba de especificaiones', 'Prueba de especificaiones edicion', '', '', '', 'no', '12', 0, 'no', '', '', '2019/04/02 20:07:08'),
-('Prueba Final', 'Prueba Final', 'prueba-final', '', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/04/03 15:55:10'),
-('Sin', 'SIn', 'sin', '', '', '', '', '', 'no', '0', 0, 'no', '', '', '2019/02/15 22:56:24');
+('A Final', 'A Final', 'a-final', '<p>A Final</p>', '<p>A Final</p>', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:57:40'),
+('AAAAAAAA', 'AAAAAAAAA', 'aaaaaaaaa', '', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:31:53'),
+('ahora si', 'nombre de ahora si', 'nombre-de-ahora-si', '<p>descripcion de ahora si</p>', '<p><span style=\"color:#afafaf\">especificaciones de ahora si</span></p>\r\n\r\n<p><input alt=\"\" src=\"http://localhost/sosadmin/productos/banner.jpg\" style=\"width: 100%\" type=\"image\" /></p>', '', '', '', 'no', '18.35', '0', 'no', '3', '', '2019/04/03 15:58:16'),
+('asdf', '213', '213', 'asdfsadf', '', '', '', '', 'no', '12', '0', 'no', '', '', '2019/02/15 23:22:16'),
+('asdfasdf', 'asdfsadf2', 'asdfsadf2', 'asdfsadf', '<p>ASDASD</p>', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:43:54'),
+('asdfasdfasdf', 'asdfsadf', 'asdfsadf', 'asdfsdf', '', '', '', '', 'no', '0', '0', 'no', '0', '', '2019/04/03 15:34:12'),
+('asdffsadfas', 'asdffasdfasd', 'asdffasdfasd', '', '', '', '', '', 'no', '0', '0', 'no', '5', '<p>asdfasdf</p>', '2019/05/02 01:48:16'),
+('Calificacion', 'Calificacion', 'calificacion', '', '', '', '', '', 'no', '0', '0', 'no', '3', '', '2019/05/02 01:49:11'),
+('Calificacion2', 'Calificacion2', 'calificacion2', '<p><span style=\"font-size:20px\">asdfasdfasdf</span></p>', '', '', '', '', 'no', '0', '0', 'no', '3', '<p>Justificacion</p>', '2019/05/02 01:49:49'),
+('dasfasdf', '213123', '213123', 'asdfas', '', '', '', '', 'no', '11', '0', 'no', '', '', '2019/02/18 22:25:46'),
+('eva', 'eva', 'eva', '', '', '', '', '', 'no', '0', '0', 'no', '5', '', '2019/05/02 01:43:25'),
+('Final', 'Final', 'final', '', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:56:26'),
+('lola', 'lola', 'lola', '', '', '', '', '', 'no', '0', '0', 'no', '0', '', '2019/05/07 22:40:52'),
+('PR', 'PR', 'pr', '', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/02 21:15:25'),
+('Preuaba con script', 'Preuaba con script', 'preuaba-con-script', 'Preuaba con script', '<p>Preuaba con script</p>', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:52:51'),
+('Productazo', 'Porductazo', 'porductazo', '<p style=\"text-align:center\">Es un producto descripcion</p>', '<p>Es un producto</p>', '123', '', '', 'no', '12', '0', 'no', '4', '<p>Es la verga</p>', '2019/04/15 21:45:24'),
+('Prueba', 'adsf', 'adsf', 'asdf', '', '', '', '', 'no', '12', '0', 'no', '', '', '2019/02/15 22:54:38'),
+('Prueba Con Especificaciones', 'Prueba Con Especificaciones', 'prueba-con-especificaciones', 'Prueba Con Especificaciones', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:44:43'),
+('Prueba Con Especificaciones 2', 'Prueba Con Especificaciones 2', 'prueba-con-especificaciones-2', 'ASDF', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:46:47'),
+('Prueba con guardado', 'Prueba con guardado', 'prueba-con-guardado', 'Prueba con guardado', '<p>Prueba con guardado</p>', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:47:46'),
+('Prueba de especificaiones', 'Prueba de especificaiones', 'prueba-de-especificaiones', 'Prueba de especificaiones', 'Prueba de especificaiones edicion', '', '', '', 'no', '12', '0', 'no', '0', '', '2019/04/02 20:07:08'),
+('Prueba Final', 'Prueba Final', 'prueba-final', '', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/04/03 15:55:10'),
+('Sin', 'SIn', 'sin', '', '', '', '', '', 'no', '0', '0', 'no', '', '', '2019/02/15 22:56:24');
 
 -- --------------------------------------------------------
 
@@ -381,8 +382,6 @@ INSERT INTO `relaciones` (`sku`, `id_taxonomia`, `orden`) VALUES
 ('asdf', 7, NULL),
 ('dasfasdf', 10, NULL),
 ('dasfasdf', 6, NULL),
-('Prueba de especificaiones', 47, NULL),
-('Prueba de especificaiones', 3, NULL),
 ('PR', 13, NULL),
 ('a', 13, NULL),
 ('03 04 19', 13, NULL),
@@ -409,7 +408,11 @@ INSERT INTO `relaciones` (`sku`, `id_taxonomia`, `orden`) VALUES
 ('asdffsadfas', 47, NULL),
 ('Calificacion', 41, NULL),
 ('Calificacion2', 13, NULL),
-('Calificacion2', 3, NULL);
+('Calificacion2', 3, NULL),
+('asdfasdfasdf', 12, NULL),
+('Productazo', 12, NULL),
+('Prueba de especificaiones', 57, NULL),
+('lola', 53, NULL);
 
 -- --------------------------------------------------------
 
@@ -488,7 +491,8 @@ INSERT INTO `taxonomias` (`id`, `nombre`, `slug`, `taxonomia`, `descripcion`, `p
 (57, 'Me vio y se fue', 'me-vio-y-se-fue', 'categoria', 'asdfasdfsadfsdf', 0, 0, 0, NULL),
 (58, 'Me vio y se fue jajaa', 'me-vio-y-se-fue-jajaa', 'categoria', 'asdfasdfsadfsdf', 0, 0, 0, NULL),
 (59, 'Me visse fue jajaa', 'me-visse-fue-jajaa', 'categoria', 'asdfasdfsadfsdf', 0, 0, 0, NULL),
-(60, 'Me visse fue jajaa12', 'me-visse-fue-jajaa12', 'categoria', 'asdfasdfsadfsdf', 0, 0, 0, NULL);
+(60, 'Me visse fue jajaa12', 'me-visse-fue-jajaa12', 'categoria', 'asdfasdfsadfsdf', 0, 0, 0, NULL),
+(61, 'lola', 'lola', 'marca', 'lola', NULL, 0, 0, 'FFFFFF');
 
 -- --------------------------------------------------------
 
@@ -654,7 +658,7 @@ ALTER TABLE `medios`
 -- AUTO_INCREMENT de la tabla `taxonomias`
 --
 ALTER TABLE `taxonomias`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

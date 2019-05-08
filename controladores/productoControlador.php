@@ -208,5 +208,67 @@
 
 			return $descuentoSeleccionado;
 		}
+		
+		public function obtener_relacionados_producto($sku, $relaciones)
+		{
+			$listaRelacionados = array();
+			$relacionados = array();
+			foreach ($relaciones as $relacion)
+			{
+				$coincidencias = productoModelo::obtener_relacionados_modelo($sku, $relacion['id']);
+				if($coincidencias->rowCount()>0)
+				{
+					$coincidencias = $coincidencias->fetchAll();
+					foreach ($coincidencias as $coincidencia)
+					{
+						$encontrado = false;
+						for ($relacionado=0; $relacionado < count($relacionados); $relacionado++)
+						{
+							if ($relacionados[$relacionado]['Sku']==$coincidencia['sku'])
+							{
+								$relacionados[$relacionado]['Cantidad'] = $relacionados[$relacionado]['Cantidad'] + 1;
+								$encontrado = true;
+							}
+						}
+						if ($encontrado == false)
+						{
+							$agregarCoincidencia = [
+								"Sku" => $coincidencia['sku'],
+								"Cantidad" => 1
+							];
+							array_push($relacionados, $agregarCoincidencia);
+						}
+					}
+				}
+			}
+
+			for ($orden=0; $orden < count($relacionados); $orden++)
+			{ 
+				for ($orden2=0; $orden2 < count($relacionados)-$orden-1; $orden2++)
+				{ 
+					if ($relacionados[$orden2]['Cantidad']<$relacionados[$orden2+1]['Cantidad'])
+					{
+						$skuTemp = $relacionados[$orden2+1]['Sku'];
+						$cantidadTemp = $relacionados[$orden2+1]['Cantidad'];
+
+						$relacionados[$orden2+1]['Sku'] = $relacionados[$orden2]['Sku'];
+						$relacionados[$orden2+1]['Cantidad'] = $relacionados[$orden2]['Cantidad'];
+
+						$relacionados[$orden2]['Sku'] = $skuTemp;
+						$relacionados[$orden2]['Cantidad'] = $cantidadTemp;
+					}
+				}
+			}
+			
+			foreach ($relacionados as $key => $value)
+			{
+				if ($key<15)
+				{
+					array_push($listaRelacionados, $value['Sku']);
+				}
+			}
+
+			return $listaRelacionados;
+		}
 
 	}

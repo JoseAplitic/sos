@@ -100,6 +100,41 @@ $(document).ready(function(){
 		]
 	});
 
+	$('.relacionados-slideshow').slick({
+		dots: true,
+		infinite: false,
+		speed: 300,
+		slidesToShow: 5,
+		slidesToScroll: 1,
+		autoplay: false,
+		dots: false,
+		prevArrow: '<a href="#" id="prev"><i class="fas fa-chevron-left"></i></a>',
+		nextArrow: '<a href="#" id="next"><i class="fas fa-chevron-right"></i></a>',
+		responsive: [
+		{
+			breakpoint: 1024,
+			settings: {
+				slidesToShow: 4,
+				slidesToScroll: 1,
+			}
+		},
+		{
+			breakpoint: 600,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1
+			}
+		},
+		{
+			breakpoint: 480,
+			settings: {
+				slidesToShow: 2,
+				slidesToScroll: 1
+			}
+		}
+		]
+	});
+
 	$('.categories-slideshow').slick({
 		dots: true,
 		infinite: false,
