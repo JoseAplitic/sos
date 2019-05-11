@@ -333,14 +333,14 @@
                                 }
                                 $rated .= '</div>';
                             }
-                            $precioImprimir = number_format($imprimir['precio'],2);
-                            $separar = explode(".",$precioImprimir);
+                            $precioRelacionado = $instanciaCargarProductos->obtener_precio_producto($imprimir['sku'],$tipo,$imprimir['precio']);
+                            $separar = explode(".",$precioRelacionado);
                             $unidades = $separar[0];
                             $decimales = $separar[1];
                             echo '<div class="relacionados-item">
                                     <div class="product">
                                         <div class="product-image">
-                                            <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="" alt="'.$imprimir['nombre'].'"></a>
+                                            <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="'.PRODUCTOSURL.$imprimir['sku'].'.jpg" alt="'.$imprimir['nombre'].'"></a>
                                         </div>
                                         <div class="product-description">
                                             <div class="title"><a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><h3>'.$imprimir['nombre'].'</h3></a></div>
