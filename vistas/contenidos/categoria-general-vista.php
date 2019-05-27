@@ -1,4 +1,7 @@
 <main class="full-width">
+		<div class="boxed-width">
+		
+		</div>
 		<div class="home-element-1 boxed-width">
 			<div class="categories">
 				<div class="title">
