@@ -20,7 +20,7 @@
 				include "./vistas/contenidos/categoria-personalizada-vista.php";
 			}
 			else {
-				include "./vistas/contenidos/categoria-general-vista.php";
+				include "./vistas/contenidos/filtrador-categoria-vista.php";
 			}
 		}
 		else {

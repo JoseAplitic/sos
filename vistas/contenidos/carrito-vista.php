@@ -103,7 +103,7 @@ else
 			.carrito-contenedor .carrito-items .row.item .producto{display:flex;flex-flow:row nowrap;align-items:center;}
 			.carrito-contenedor .carrito-items .row.item .producto .imagen{width:100px;flex: 0 0 auto;}
 			.carrito-contenedor .carrito-items .row.item .producto .imagen img{width:100%;display:block;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto{flex: 1 0 auto;padding-left:20px;}
+			.carrito-contenedor .carrito-items .row.item .producto .texto{flex: 1 1 auto;padding-left:20px;}
 			.carrito-contenedor .carrito-items .row.item .producto .texto a{text-decoration:none;}
 			.carrito-contenedor .carrito-items .row.item .producto .texto a:hover .nombre{color:#ec110b;}
 			.carrito-contenedor .carrito-items .row.item .producto .texto a:hover .sku{color:#ec110b;}

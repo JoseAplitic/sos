@@ -238,7 +238,7 @@
                     }
                     if(count($carrito)<1)
                     {
-                        $respuesta .= '<p style="margin-top:20px;">¡Ha ocurrido un error!</p>';
+                        $respuesta .= '<p style="margin-top:20px;">¡Tu carrito esta vacio!</p>';
                         $imprimir_total = false;
                     }
                 }

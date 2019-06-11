@@ -114,6 +114,9 @@
 	</div>
 
 	<div class="custom-view-element-2 boxed-width">
+		<?php
+		$subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoCat['id']);
+		if ($subcategorias->rowCount()>0): ?>
 		<div class="categories-menu-icon">
 			<div class="title">
 				<div class="content-icon">
@@ -138,10 +141,10 @@
 			<div class="menu-departamentos">
 				<ul>
 					<?php 
-						$subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoCat['id']);
-						if ($subcategorias->rowCount()>0) {
+							$subcat = $subcategorias->fetchAll();
+							sort($subcat);
 							$lista = "";
-							foreach($subcategorias as $subcategoria)
+							foreach($subcat as $subcategoria)
 							{
 								$iconTitleAlt = "";
 								$iconTitleUrl = "";
@@ -169,20 +172,11 @@
 								';
 							}
 							echo $lista;
-						}
-						else {
-							echo '
-								<li>
-									<div class="texto">
-										<p style="padding: 20px;"><i class="fas fa-times" style="margin-right: 5px;"></i>No se han encontrado departamentos para esta categoría</p>
-									</div>
-								</li>
-							';
-						}
 					?>
 				</ul>
 			</div>
 		</div>
+		<?php endif; ?>
 		<div class="custom-view-slide">
 			<div id="slides-custom-view" class="slider-custom-view">
 				<?php 

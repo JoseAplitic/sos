@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Smart Oficce Solutions</title>
+	<?php
+		$paginaTitle = "";
+		if (isset($_GET['views']))
+		{
+			$url = explode("/", $_GET['views']);
+			if (isset($url[0]))
+			{
+				 $paginaTitle = ucfirst(str_replace("-"," ",$url[0]));
+			}
+		}
+		else
+		{
+			$paginaTitle = "Inicio";
+		}
+	?>
+	<title>Smart Oficce Solutions - <?php echo $paginaTitle; ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Descripcion del sitio">

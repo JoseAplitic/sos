@@ -45,9 +45,9 @@
                 foreach($datos as $rows)
 			    {
                     $contador += 1;
-                    if ($contador == 10)
+                    if ($contador == 11)
                     {
-                        $lista.= '<li class="home-element-1-more-cats"><a href="#" class="fas"><i class="fas fa-bars"><span>Más categorías</span></i></a>
+                        $lista.= '<li class="home-element-1-more-cats"><a id="more-cats" href="#" class="fas"><i class="fas fa-bars"><span>Más categorías</span></i></a>
                         <ul class="close">';
                         $cerrar = true;
                     }

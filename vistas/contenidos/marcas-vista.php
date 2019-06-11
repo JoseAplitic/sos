@@ -18,7 +18,7 @@
 				include "./vistas/contenidos/marca-personalizada-vista.php";
 			}
 			else {
-				include "./vistas/contenidos/marca-general-vista.php";
+				include "./vistas/contenidos/filtrador-marca-vista.php";
 			}
 		}
 		else {

@@ -1,18 +1,18 @@
 $(document).ready(function(){
 	var moreCategories = false;
-	$(".home-element-1-more-cats").click(function(){
+	$("#more-cats").click(function(){
 		event.preventDefault();
 		if (moreCategories == false){
-			$(this).children('a').children('i').children('span').text("Menos categorías");
-			$(this).addClass('icon-open');
-			$(this).children('ul').addClass("open");
+			$(this).children('i').children('span').text("Menos categorías");
+			$(this).parent('li').addClass('icon-open');
+			$(this).parent('li').children('ul').addClass("open");
 			moreCategories = true;
 		}
 		else
 		{
-			$(this).children('a').children('i').children('span').text("Más categorías");
-			$(this).removeClass('icon-open');
-			$(this).children('ul').removeClass("open");
+			$(this).children('i').children('span').text("Más categorías");
+			$(this).parent('li').removeClass('icon-open');
+			$(this).parent('li').children('ul').removeClass("open");
 			moreCategories = false;
 		}
 	});
