@@ -96,6 +96,28 @@
 			return $retornar;
 		}
 
+		public function obtener_productos_filtro_marca_controlador($marca, $productos)
+		{
+			$productosVerificados = array();
+
+			foreach ($productos as $producto)
+			{
+				$verificarMarcaRelacion = filtroCategoriaModelo::verificar_relacion_marca_modelo($marca, $producto["sku"]);
+				if($verificarMarcaRelacion->rowCount()>0)
+				{
+					$verificado = $verificarMarcaRelacion->fetch();
+					$productosVerificados = array_merge($productosVerificados, $verificado);
+				}
+			}
+
+			$retornar = [
+				"Productos"=>$productos,
+				"Marcas"=>$marca
+			];
+
+			return $retornar;
+		}
+
 		public function obtener_info_producto($slug)
 		{
 			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE slug=:Slug");

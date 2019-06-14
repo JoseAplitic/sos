@@ -72,6 +72,9 @@
     <div class="filtrador boxed-width">
         <div class="sidebar">
             <?php
+            $filtroMarca = false;
+            $idMarca = "";
+            $nombreMarca = "";
             $subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoCat['id']);
             if ($subcategorias->rowCount()>0): ?>
             <div class="categories-menu-icon">
@@ -176,6 +179,7 @@
                 if($dato[0]=="marca")
                 {
                     $url_precio_marca = "marca-".$dato[1]."/";
+                    //echo $url_precio_marca; -----ESTOY TRABAJANDO ACA
                 }
                 else if($dato[0]=="pagina")
                 {
@@ -200,18 +204,17 @@
                 </div>
                 <div class="contenido">
                     <ul>
-                        <?php                                          
-                        $filtroCat = false;
-                        $nombreMarca = "";
+                        <?php
                         foreach ($todosLosProductos["Marcas"] as $catEncontradas)
                         {
                             if($catEncontradas["slug"]==$marca)
                             {
-                                $filtroCat = true;
+                                $filtroMarca = true;
+                                $idMarca = $catEncontradas["id"];
                                 $nombreMarca = $catEncontradas["nombre"];
                             }
                         }
-                        if($filtroCat == true):
+                        if($filtroMarca == true):
                         ?>
                         <li>
                             <a href="<?php echo $url_precio.$precio_min_imp.$precio_max_imp.$url_precio_pagina; ?>">
@@ -374,6 +377,14 @@
             <?php endif; ?>
         </div>
         <div class="productos">
+            <?php
+                if($filtroMarca == true)
+                {
+                    $todosLosProductos = filtroCategoriaControlador::obtener_productos_filtro_marca_controlador($idMarca, $todosLosProductos["Productos"]);
+                }
+                $NumeroProductos = count($todosLosProductos);
+                echo $NumeroProductos . "<hr>";
+            ?>
             <div class="paginador">
                 <ol>
                     <li><a href="#">Ant</a></li>

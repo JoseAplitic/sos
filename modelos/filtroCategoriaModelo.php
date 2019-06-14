@@ -46,7 +46,7 @@
 				$condicional .= "id = '".$relacion['id_taxonomia']."' ";
 				$conteo++;
 			}
-			$sql=mainModel::conectar()->prepare("SELECT nombre, slug FROM taxonomias WHERE ($condicional) AND taxonomia = 'marca'");
+			$sql=mainModel::conectar()->prepare("SELECT id, nombre, slug FROM taxonomias WHERE ($condicional) AND taxonomia = 'marca'");
 			$sql->execute();
 			return $sql;
 		}
@@ -69,6 +69,15 @@
 		protected function obtener_info_relacion_modelo($id){
 			$sql=mainModel::conectar()->prepare("SELECT id, nombre, slug, taxonomia, padre, icono FROM taxonomias WHERE id=:Id");
 			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_relacion_marca_modelo($marca, $producto)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT sku FROM relaciones WHERE sku=:Sku AND id_taxonomia=:Id");
+			$sql->bindParam(":Sku",$producto);
+			$sql->bindParam(":Id",$marca);
 			$sql->execute();
 			return $sql;
 		}
