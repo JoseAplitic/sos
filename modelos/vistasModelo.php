@@ -3,7 +3,7 @@
 		protected function obtener_vistas_modelo($vistas){
 			$listaBlanca=
 			[
-				"inicio", "producto", "categorias", "marcas", "login", "registro", "registro-empresarial", "registro-exitoso", "carrito", "politica-de-envios-y-entrega", "acerca-de-nosotros"
+				"inicio", "producto", "categorias", "marcas", "login", "registro", "registro-empresarial", "registro-exitoso", "carrito", "politica-de-envios-y-entrega", "acerca-de-nosotros", "pago"
 			];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-vista.php")){

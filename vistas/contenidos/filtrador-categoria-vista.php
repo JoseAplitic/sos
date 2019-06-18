@@ -49,8 +49,43 @@
     .filtrador .sidebar .widget .contenido ul li a .filtro .icono.seleccionado{background-image:url(<?php echo SERVERURL; ?>vistas/assets/img/filtro-check.png) !important;}
     .filtrador .sidebar .widget .contenido ul li a .filtro .icono.deseleccionar{background-image:url(<?php echo SERVERURL; ?>vistas/assets/img/filtro-nocheck.png) !important;}
     .filtrador .sidebar .widget .contenido ul li a .filtro .filtro-desc{flex:1 0 auto;padding-left:10px;}
+
+
+    .lista-productos{display:flex;flex-flow:row wrap;justify-content:flex-start;}
+    .lista-productos .producto-item{width:calc((100% / 3) - 20px);margin-right:20px;}
+    .lista-productos .producto-item .product{padding: 0px 0px 10px 0px;margin-bottom:20px;border-bottom:1px solid #d2d2d2;}
+    .lista-productos .producto-item .product .product-image{margin-bottom: 20px;}
+    .lista-productos .producto-item .product .product-image img{width: 100%;display: block;}
+    .lista-productos .producto-item .product .product-description{color: #000;}
+    .lista-productos .producto-item .product .product-description .title{margin-bottom: 10px;}
+    .lista-productos .producto-item .product .product-description .rated{margin-bottom: 10px;display: flex;flex-flow: row wrap;}
+    .lista-productos .producto-item .product .product-description .rated i{margin-right: 5px;}
+    .lista-productos .producto-item .product .product-description .rated i:last-child{margin-right: 0px;}
+    .lista-productos .producto-item .product .product-description .title a{color: #000;text-decoration: none;}
+    .lista-productos .producto-item .product .product-description .title a:hover{color: #ec110b;}
+    .lista-productos .producto-item .product .product-description .price{display: flex;flex-flow: row wrap;align-items:flex-start;font-weight: bold;}
+    .lista-productos .producto-item .product .product-description .price .currency,
+    .lista-productos .producto-item .product .product-description .price .units{font-size: 32px;}
+    .lista-productos .producto-item .product .product-description .price .decimals{font-size: 16px;line-height: 1.55;}
+    .lista-productos .producto-item .product .product-description .legend{font-size: 14px;font-weight: bold;}
+
+    .yellow{color: #ffbe00;}
+    .gray{color: #6b6b6b;}
 </style>
 <?php
+
+    $tipo = "";
+    $id_usuario = "";
+    if (isset($_COOKIE['user_tipo']))
+    {
+        $tipo = $_COOKIE['user_tipo'];
+        $id_usuario = $_SESSION['user_id'];
+    }
+    else
+    {
+        $tipo = "invitado";
+    }
+
     require_once "./controladores/filtroCategoriaControlador.php";
     $instanciaFiltro = new filtroCategoriaControlador();
 ?>
@@ -382,8 +417,7 @@
                 {
                     $todosLosProductos = filtroCategoriaControlador::obtener_productos_filtro_marca_controlador($idMarca, $todosLosProductos["Productos"]);
                 }
-                $NumeroProductos = count($todosLosProductos);
-                echo $NumeroProductos . "<hr>";
+                $NumeroProductos = count($todosLosProductos["Productos"]);
             ?>
             <div class="paginador">
                 <ol>
@@ -398,11 +432,48 @@
             </div>
             <div class="lista-productos">
                 <?php
-                    echo "<hr>";
-                    print_r($todosLosProductos["Productos"]);
-                    echo "<hr>";
-                    print_r($todosLosProductos["Marcas"]);
-                    echo "<hr>";
+                    require_once "./controladores/cargarProductosControlador.php";
+                    $instanciaCargarProductos = new cargarProductosControlador();
+                    $productosMostrar = $instanciaCargarProductos->cargar_lista_productos($todosLosProductos["Productos"]);
+                    foreach ($productosMostrar as $imprimir)
+                    {
+                        $rated="";
+                        if ($imprimir['calificacion']>0)
+                        {
+                            $rated .= '<div class="rated">';
+                            $yellow = $imprimir['calificacion'];
+                            $gray = 5 - $imprimir['calificacion'];
+                            for ($i=1; $i <= $yellow; $i++)
+                            { 
+                                $rated .= '<i class="fas fa-star yellow"></i>';
+                            }
+                            for ($i=1; $i <= $gray; $i++)
+                            { 
+                                $rated .= '<i class="fas fa-star gray"></i>';
+                            }
+                            $rated .= '</div>';
+                        }
+                        $precioProducto = $instanciaCargarProductos->obtener_precio_producto($imprimir['sku'],$tipo,$imprimir['precio']);
+                        $separar = explode(".",$precioProducto);
+                        $unidades = $separar[0];
+                        $decimales = $separar[1];
+                        echo '<div class="producto-item">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="'.PRODUCTOSURL.$imprimir['sku'].'.jpg" alt="'.$imprimir['nombre'].'"></a>
+                                    </div>
+                                    <div class="product-description">
+                                        <div class="title"><a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><h3>'.$imprimir['nombre'].'</h3></a></div>
+                                        '.$rated.'
+                                        <div class="price">
+                                            <p class="currency">Q.</p>
+                                            <p class="units">'.$unidades.'.</p>
+                                            <p class="decimals">'.$decimales.'</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                    }
                 ?>
             </div>
             <div class="paginador">

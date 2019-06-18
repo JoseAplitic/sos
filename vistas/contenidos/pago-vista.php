@@ -151,9 +151,8 @@ else
 		<div class="carrito-contenedor boxed-width">
 			<div class="title"><p>Carrito de compras</p></div>
 			<div class="menu-proceso-compra">
-				<div class="paso activo">
-					<p>Carrito de compras</p>
-					<img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png">
+				<div class="paso">
+					<a href="<?=SERVERURL;?>carrito/"><p>Carrito de compras</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
 				</div>
 				<div class="paso">
 					<a href="#registro"><p>Iniciar sesión</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
@@ -161,44 +160,13 @@ else
 				<div class="paso">
 					<a href="#registro"><p>Facturación & envío</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
 				</div>
-				<div class="paso final">
-					<a href="<?=SERVERURL;?>pago/"><p>Realiza el pago</p></a>
+				<div class="paso activo final">
+					<p>Realiza el pago</p>
 				</div>
 			</div>
-			<div id="carro" class="full-width">
-				<?php
-					require_once "./controladores/carritoPaginaControlador.php";
-					$instanciaCargarCarrito = new carritoPaginaControlador();
-					echo $instanciaCargarCarrito::cargar_carrito($tipo, $id_usuario);
-				?>
+			<div id="pago" class="full-width">
+				<!-- AQUI VA EL CONTENIDO DE EL FORMULARIO DE PAGO -->
 			</div>
 		</div>
-		
-		<script>
-			$('input[type="number"]').change(function()
-			{
-				if($(this).val() > 0)
-				{
-					$(this).parent('form').submit();
-				}
-			});
-			$('form').keypress(function(e)
-			{
-				if(e == 13)
-				{
-					$(this).children('input[type="number"]').blur();
-					return false;
-				}
-			});
-			$('input').keypress(function(e)
-			{
-				if(e.which == 13)
-				{
-					$(this).blur();
-					return false;
-				}
-			});
-		</script>
-		
 
     </main>
