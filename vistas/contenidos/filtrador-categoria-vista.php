@@ -108,6 +108,7 @@
         <div class="sidebar">
             <?php
             $filtroMarca = false;
+            $filtroPrecio = false;
             $idMarca = "";
             $nombreMarca = "";
             $subcategorias = $instanciaCategorias->obtener_subcategorias_controlador($infoCat['id']);
@@ -185,7 +186,17 @@
                     $dato = explode("-", $atributo);
                     if($dato[0]=="marca")
                     {
-                        $marca = $dato[1];
+                        foreach ($dato as $key => $value)
+                        {
+                            if($key == 1)
+                            {
+                                $marca .= $value;
+                            }
+                            if($key > 1)
+                            {
+                                $marca .= "-".$value;
+                            }
+                        }
                     }
                     else if($dato[0]=="precioMin")
                     {
@@ -214,24 +225,23 @@
                 if($dato[0]=="marca")
                 {
                     $url_precio_marca = "marca-".$dato[1]."/";
-                    //echo $url_precio_marca; -----ESTOY TRABAJANDO ACA
                 }
                 else if($dato[0]=="pagina")
                 {
                     $url_precio_pagina = "pagina-".$dato[1]."/";
                 }
             }
+            $precio_min_imp = "";
+            $precio_max_imp = "";
+            if($precio_min>=0)
+            {
+                $precio_min_imp = "precioMin-".$precio_min."/";
+            }
+            if($precio_max>=0)
+            {
+                $precio_max_imp = "precioMax-".$precio_max."/";
+            } 
             if(count($todosLosProductos["Marcas"])>0):
-                $precio_min_imp = "";
-                $precio_max_imp = "";
-                if($precio_min>=0)
-                {
-                    $precio_min_imp = "precioMin-".$precio_min."/";
-                }
-                if($precio_max>=0)
-                {
-                    $precio_max_imp = "precioMax-".$precio_max."/";
-                }
             ?>
             <div class="widget">
                 <div class="titulo">
@@ -280,132 +290,187 @@
                     </ul>
                 </div>
             </div>
-            <?php endif; ?>
+            <?php 
+            endif;
+            ?>
             <div class="widget">
                 <div class="titulo">
                     <p>Precio</p>
                 </div>
                 <div class="contenido">
                     <ul>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-0/precioMax-100/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 0 && $precio_min <= 100 && $precio_max >= 0 && $precio_max <= 100)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                    <?php
+                        if($precio_min >= 0 && $precio_max <= 100 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Menos de Q100</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Menos de Q100</p>
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 100 && $precio_max <= 200 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q100 - Q199.99</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-100/precioMax-200/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 100 && $precio_min <= 200 && $precio_max >= 100 && $precio_max <= 200)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 200 && $precio_max <= 500 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q200 - Q499.99</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q100 - Q199.99</p>
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 500 && $precio_max <= 1000 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q500 - Q999.99</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-200/precioMax-500/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 200 && $precio_min <= 500 && $precio_max >= 200 && $precio_max <= 500)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 1000 && $precio_max <= 5000 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q1000 - Q4999.99</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q200 - Q499.99</p>
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 5000 && $precio_max <= 10000 && $precio_max > 0):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q5000 - Q9999.99</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-500/precioMax-1000/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 500 && $precio_min <= 1000 && $precio_max >= 500 && $precio_max <= 1000)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li><?php
+                        elseif($precio_min >= 10000):
+                            $filtroPrecio = true;?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca.$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono deseleccionar">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q10000+</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q500 - Q999.99</p>
+                                </a>
+                            </li><?php
+                        else:
+                        ?>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-0/precioMax-100/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Menos de Q100</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-1000/precioMax-5000/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 1000 && $precio_min <= 5000 && $precio_max >= 1000 && $precio_max <= 5000)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-100/precioMax-200/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q100 - Q199.99</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q1000 - Q4999.99</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-200/precioMax-500/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q200 - Q499.99</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-5000/precioMax-10000/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 5000 && $precio_min <= 10000 && $precio_max >= 1000 && $precio_max <= 10000)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-500/precioMax-1000/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q500 - Q999.99</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q5000 - Q9999.99</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-1000/precioMax-5000/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q1000 - Q4999.99</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $url_precio.$url_precio_marca."precioMin-10000/".$url_precio_pagina; ?>">
-                                <div class="filtro">
-                                    <?php
-                                        if($precio_min >= 10000)
-                                        {
-                                            $url_precio_clase = " seleccionado";
-                                        }
-                                    ?>
-                                    <div class="icono <?php echo $url_precio_clase; $url_precio_clase=""; ?>">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-5000/precioMax-10000/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q5000 - Q9999.99</p>
+                                        </div>
                                     </div>
-                                    <div class="filtro-desc">
-                                        <p>Q10000+</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_precio.$url_precio_marca."precioMin-10000/".$url_precio_pagina; ?>">
+                                    <div class="filtro">
+                                        <div class="icono">
+                                        </div>
+                                        <div class="filtro-desc">
+                                            <p>Q10000+</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -417,7 +482,13 @@
                 {
                     $todosLosProductos = filtroCategoriaControlador::obtener_productos_filtro_marca_controlador($idMarca, $todosLosProductos["Productos"]);
                 }
+                if($filtroPrecio == true)
+                {
+                    echo '<div style="border: 2px solid #000;padding:20px;"> Esta filtrando por precio </div>';
+                    //AQUI DEBO REALIZAR UN FILTRO DE PRECIOS
+                }
                 $NumeroProductos = count($todosLosProductos["Productos"]);
+                echo '<div style="border: 2px solid #000;padding:20px;"> Numero de productos: '.$NumeroProductos.' </div>';
             ?>
             <div class="paginador">
                 <ol>
@@ -432,48 +503,48 @@
             </div>
             <div class="lista-productos">
                 <?php
-                    require_once "./controladores/cargarProductosControlador.php";
-                    $instanciaCargarProductos = new cargarProductosControlador();
-                    $productosMostrar = $instanciaCargarProductos->cargar_lista_productos($todosLosProductos["Productos"]);
-                    foreach ($productosMostrar as $imprimir)
-                    {
-                        $rated="";
-                        if ($imprimir['calificacion']>0)
-                        {
-                            $rated .= '<div class="rated">';
-                            $yellow = $imprimir['calificacion'];
-                            $gray = 5 - $imprimir['calificacion'];
-                            for ($i=1; $i <= $yellow; $i++)
-                            { 
-                                $rated .= '<i class="fas fa-star yellow"></i>';
-                            }
-                            for ($i=1; $i <= $gray; $i++)
-                            { 
-                                $rated .= '<i class="fas fa-star gray"></i>';
-                            }
-                            $rated .= '</div>';
-                        }
-                        $precioProducto = $instanciaCargarProductos->obtener_precio_producto($imprimir['sku'],$tipo,$imprimir['precio']);
-                        $separar = explode(".",$precioProducto);
-                        $unidades = $separar[0];
-                        $decimales = $separar[1];
-                        echo '<div class="producto-item">
-                                <div class="product">
-                                    <div class="product-image">
-                                        <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="'.PRODUCTOSURL.$imprimir['sku'].'.jpg" alt="'.$imprimir['nombre'].'"></a>
-                                    </div>
-                                    <div class="product-description">
-                                        <div class="title"><a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><h3>'.$imprimir['nombre'].'</h3></a></div>
-                                        '.$rated.'
-                                        <div class="price">
-                                            <p class="currency">Q.</p>
-                                            <p class="units">'.$unidades.'.</p>
-                                            <p class="decimals">'.$decimales.'</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>';
-                    }
+                    // require_once "./controladores/cargarProductosControlador.php";
+                    // $instanciaCargarProductos = new cargarProductosControlador();
+                    // $productosMostrar = $instanciaCargarProductos->cargar_lista_productos($todosLosProductos["Productos"]);
+                    // foreach ($productosMostrar as $imprimir)
+                    // {
+                    //     $rated="";
+                    //     if ($imprimir['calificacion']>0)
+                    //     {
+                    //         $rated .= '<div class="rated">';
+                    //         $yellow = $imprimir['calificacion'];
+                    //         $gray = 5 - $imprimir['calificacion'];
+                    //         for ($i=1; $i <= $yellow; $i++)
+                    //         { 
+                    //             $rated .= '<i class="fas fa-star yellow"></i>';
+                    //         }
+                    //         for ($i=1; $i <= $gray; $i++)
+                    //         { 
+                    //             $rated .= '<i class="fas fa-star gray"></i>';
+                    //         }
+                    //         $rated .= '</div>';
+                    //     }
+                    //     $precioProducto = $instanciaCargarProductos->obtener_precio_producto($imprimir['sku'],$tipo,$imprimir['precio']);
+                    //     $separar = explode(".",$precioProducto);
+                    //     $unidades = $separar[0];
+                    //     $decimales = $separar[1];
+                    //     echo '<div class="producto-item">
+                    //             <div class="product">
+                    //                 <div class="product-image">
+                    //                     <a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><img src="'.PRODUCTOSURL.$imprimir['sku'].'.jpg" alt="'.$imprimir['nombre'].'"></a>
+                    //                 </div>
+                    //                 <div class="product-description">
+                    //                     <div class="title"><a href="'.SERVERURL.'producto/'.$imprimir['slug'].'/"><h3>'.$imprimir['nombre'].'</h3></a></div>
+                    //                     '.$rated.'
+                    //                     <div class="price">
+                    //                         <p class="currency">Q.</p>
+                    //                         <p class="units">'.$unidades.'.</p>
+                    //                         <p class="decimals">'.$decimales.'</p>
+                    //                     </div>
+                    //                 </div>
+                    //             </div>
+                    //         </div>';
+                    // }
                 ?>
             </div>
             <div class="paginador">
