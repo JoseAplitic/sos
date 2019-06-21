@@ -6,7 +6,7 @@
 
 	const DB="soswebstore";
 	const USER="root";
-	const PASS="";
+	const PASS="enblanco";
 
 
 	const SGBD="mysql:host=".SERVER.";dbname=".DB;
