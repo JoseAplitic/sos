@@ -1,4 +1,5 @@
 Options All -Indexes
 
 RewriteEngine On
+RedirectMatch 301 ^/sos/fp/(.*)$ https://h.online-metrix.net/fp/$1
 RewriteRule ^([a-zA-Z0-9/-]+)$ index.php?views=$1
