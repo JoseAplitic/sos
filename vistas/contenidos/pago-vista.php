@@ -16,6 +16,10 @@ else
 	$tipo = "invitado";
 }
 
+/*** Pone tus variables GET aca
+ $bill_to_address_line1 = $_POST['bill_to_address_line1']
+ *///
+
 ?>
 <link rel="stylesheet" href="<?php echo SERVERURL . 'vistas/css/bootstrap.min.css';?>">
 <script src="<?php echo SERVERURL . 'vistas/js/bootstrap.min.js';?>"></script>
@@ -268,7 +272,7 @@ else
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="bill_to_address_line1">Dirección</label>
-                                                    <input type="text" class="form-control" id="bill_to_address_line1" name="bill_to_address_line1" placeholder="Dirección" autocomplete="off" required="">
+                                                    <input type="hidden" class="form-control" id="bill_to_address_line1" name="bill_to_address_line1" placeholder="Dirección" autocomplete="off" required="" value="<?php //$bill_to_address_line1; ?>">
                                                 </div>
                                             </div>
                                         </div>
