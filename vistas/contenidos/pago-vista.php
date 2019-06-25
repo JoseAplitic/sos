@@ -158,15 +158,15 @@ else
 
 		<div class="carrito-contenedor boxed-width">
 			<div class="title"><p>Carrito de compras</p></div>
-			<div class="menu-proceso-compra">
+            <div class="menu-proceso-compra">
 				<div class="paso">
 					<a href="<?=SERVERURL;?>carrito/"><p>Carrito de compras</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
 				</div>
 				<div class="paso">
-					<a href="#registro"><p>Iniciar sesión</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
+                    <a href="<?=SERVERURL;?>login-compra/"><p>Iniciar sesión</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
 				</div>
 				<div class="paso">
-					<a href="#registro"><p>Facturación & envío</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
+					<a href="<?=SERVERURL;?>facturacion-y-envio/"><p>Facturación & envío</p><img src="<?php echo SERVERURL; ?>vistas/assets/img/step-arrow.png"></a>
 				</div>
 				<div class="paso activo final">
 					<p>Realiza el pago</p>

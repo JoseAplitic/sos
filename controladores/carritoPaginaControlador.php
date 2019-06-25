@@ -23,6 +23,7 @@
             if ($tipo_usuario=="personal")
             {
                 $productos = carritoPaginaModelo::cargar_carrito_personal($id_usuario);
+                $id_usuario = mainModel::encryption($id_usuario);
                 if($productos->rowCount()>0)
                 {
                     $lista = array();
@@ -50,7 +51,6 @@
                         $subtotal = $precio * $cantidad;
                         $total = $total + $subtotal;
                         $subtotal = number_format($subtotal,2);
-                        $id_usuario = mainModel::encryption($id_usuario);
                         $respuesta .= 
                             '<div class="row item">
                                 <div class="column producto w60">
@@ -98,6 +98,7 @@
             elseif ($tipo_usuario=="empresarial")
             {
                 $productos = carritoPaginaModelo::cargar_carrito_empresarial($id_usuario);
+                $id_usuario = mainModel::encryption($id_usuario);
                 if($productos->rowCount()>0)
                 {
                     $lista = array();
@@ -125,7 +126,6 @@
                         $subtotal = $precio * $cantidad;
                         $total = $total + $subtotal;
                         $subtotal = number_format($subtotal,2);
-                        $id_usuario = mainModel::encryption($id_usuario);
                         $respuesta .= 
                             '<div class="row item">
                                 <div class="column producto w60">
@@ -265,7 +265,7 @@
                 }
                 else
                 {
-                    $enlaceCarrito = SERVERURL.'inicio-sesion/';
+                    $enlaceCarrito = SERVERURL.'login-compra/';
                     $textoCarrito = 'Iniciar Sesión';
                 }
                 $respuesta .= '

@@ -1,12 +1,17 @@
 <?php
 	const SERVER="localhost";
-	/*const DB="apliticn_sos";
-	const USER="apliticn_sos";
-	const PASS="sos.2018";*/
 
 	const DB="soswebstore";
 	const USER="root";
-	const PASS="enblanco";
+	const PASS="";
+	
+	/*const DB="apliticn_sos";
+	const USER="apliticn_sos";
+	const PASS="sos.2018";
+	
+	const DB="soswebstore";
+	const USER="root";
+	const PASS="enblanco";*/
 
 
 	const SGBD="mysql:host=".SERVER.";dbname=".DB;
