@@ -118,12 +118,13 @@ else
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > label{display:inline;width:max-content;color:#0d6bb7;font-size: 12pt;font-weight:normal;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > input:hover, .carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form p > label:hover{cursor:pointer;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form input[type="submit"]{
-				background-color: #0d6bb7;border-width: 0px !important;border-radius:0px;display:flex;margin:50px auto;width:max-content;color:#fff;padding:15px 150px;font-weight:bold;}
+				background-color: #0d6bb7;border-width: 0px !important;border-radius:0px;display:flex;margin:20px auto;width:max-content;color:#fff;padding:15px 150px;font-weight:bold;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form input[type="submit"]:hover{cursor:pointer;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro{text-align:center;margin-top: 15px;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro a{color:#777575;text-decoration:none;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .regresar-registro a:hover{text-decoration:underline;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content form .RespuestaAjax{padding: 20px 0px;}
+			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content .visitar-registro{margin-bottom:10px;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content .visitar-registro a{display:block;background-color:#f0f0f0;color:#100f0f;text-decoration:none;text-align:center;font-size:12pt;padding: 20px;-webkit-transition: all 0.3s ease;-moz-transition: all 0.3s ease;-ms-transition: all 0.3s ease;-o-transition: all 0.3s ease;transition: all 0.3s ease;}
 			.carrito-contenedor .registro-contenido .registro-contenido-row.row-1 .content .visitar-registro a:hover{background-color:#e3e3e3;-webkit-transition: all 0.3s ease;-moz-transition: all 0.3s ease;-ms-transition: all 0.3s ease;-o-transition: all 0.3s ease;transition: all 0.3s ease;}
 
@@ -191,6 +192,8 @@ else
 					<div class="content">
 						<form action="<?php echo SERVERURL; ?>ajax/loginAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
 							
+							<input type="hidden" name="carrito">
+
 							<label for="correo">Correo electrónico</label>
 							<input id="correo" type="text" name="correo" class="FormularioAjaxCampo" required="">
 							
@@ -206,13 +209,16 @@ else
 							</div>
 							
 							<input class="boton-registro" type="submit" value="Ingresar">
-
 							<div class="RespuestaAjax"></div>
 
 						</form>
 
 						<div class="visitar-registro">
 							<a href="<?php echo SERVERURL; ?>registro/">¿No tienes una cuenta? Crea una.</a>
+						</div>
+
+						<div class="visitar-registro">
+							<a href="<?php echo SERVERURL; ?>facturacion-y-envio/">Continuar sin cuenta...</a>
 						</div>
 					</div>
 				</div>

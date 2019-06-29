@@ -1,12 +1,58 @@
 <?php
 	if($peticionAjax){
-		require_once "../modelos/carritoPaginaModelo.php";
+		require_once "../modelos/cargarInfoCarritoModelo.php";
 	}else{
-		require_once "./modelos/carritoPaginaModelo.php";
+		require_once "./modelos/cargarInfoCarritoModelo.php";
 	}
 
-	class carritoPaginaControlador extends carritoPaginaModelo
+	class cargarInfoCarritoControlador extends cargarInfoCarritoModelo
 	{
+
+        public function guardar_datos_usuario_controlador($tipo_usuario, $id_usuario, $datosCliente)
+        {
+            if ($tipo_usuario=="personal")
+            {
+                cargarInfoCarritoModelo::guardar_datos_usuario_personal($id_usuario, $datosCliente);
+            }
+            elseif ($tipo_usuario=="empresarial")
+            {
+                cargarInfoCarritoModelo::guardar_datos_usuario_empresarial($id_usuario, $datosCliente);
+            }
+        }
+
+        public function verificar_carrito_controlador($tipo_usuario, $id_usuario)
+        {
+            $hayCarrito = false;
+            if ($tipo_usuario=="personal")
+            {
+                $productos = cargarInfoCarritoModelo::cargar_carrito_personal($id_usuario);
+                if($productos->rowCount()>0)
+                {
+                    $hayCarrito = true;
+                }
+            }
+            elseif ($tipo_usuario=="empresarial")
+            {
+                $productos = cargarInfoCarritoModelo::cargar_carrito_empresarial($id_usuario);
+                if($productos->rowCount()>0)
+                {
+                    $hayCarrito = true;
+                }
+            }
+            elseif($tipo_usuario=="invitado")
+            {
+                if (isset($_COOKIE['user_carrito']))
+                {
+                    $carrito = unserialize($_COOKIE['user_carrito'], ["allowed_classes" => false]);
+                    if(count($carrito)>0)
+                    {
+                        $hayCarrito = true;
+                    }
+                }
+                
+            }
+            return $hayCarrito;
+        }
 
         public function cargar_carrito($tipo_usuario, $id_usuario)
         {
@@ -22,8 +68,7 @@
                             <div class="carrito-items">';
             if ($tipo_usuario=="personal")
             {
-                $productos = carritoPaginaModelo::cargar_carrito_personal($id_usuario);
-                $id_usuario = mainModel::encryption($id_usuario);
+                $productos = cargarInfoCarritoModelo::cargar_carrito_personal($id_usuario);
                 if($productos->rowCount()>0)
                 {
                     $lista = array();
@@ -91,22 +136,13 @@
                 }
                 else
                 {
-                    $respuesta .= '<style>
-                                            .carrito-vacio{text-align:center;margin-top:20px;}
-                                            .carrito-vacio p{font-size: 18pt;font-weight:bold;line-height:1.2;margin-bottom:20px;}
-                                            .carrito-vacio a{font-size: 14pt;background-color:#0d6bb7;color:#fff;text-decoration:none;padding:10px 20px;}
-                                        </style>
-                                        <div class="carrito-vacio">
-                                            <p>¡No hay productos en tu carrito!</p>
-                                            <a href="'.SERVERURL.'">Volver a la tienda</a>
-                                        </div>';
+                    $respuesta .= '<p style="margin-top:20px;">¡Tu carrito esta vacio!</p>';
                     $imprimir_total = false;
                 }
             }
             elseif ($tipo_usuario=="empresarial")
             {
-                $productos = carritoPaginaModelo::cargar_carrito_empresarial($id_usuario);
-                $id_usuario = mainModel::encryption($id_usuario);
+                $productos = cargarInfoCarritoModelo::cargar_carrito_empresarial($id_usuario);
                 if($productos->rowCount()>0)
                 {
                     $lista = array();
@@ -174,15 +210,7 @@
                 }
                 else
                 {
-                    $respuesta .= '<style>
-                                            .carrito-vacio{text-align:center;margin-top:20px;}
-                                            .carrito-vacio p{font-size: 18pt;font-weight:bold;line-height:1.2;margin-bottom:20px;}
-                                            .carrito-vacio a{font-size: 14pt;background-color:#0d6bb7;color:#fff;text-decoration:none;padding:10px 20px;}
-                                        </style>
-                                        <div class="carrito-vacio">
-                                            <p>¡No hay productos en tu carrito!</p>
-                                            <a href="'.SERVERURL.'">Volver a la tienda</a>
-                                        </div>';
+                    $respuesta .= '<p style="margin-top:20px;">¡Tu carrito esta vacio!</p>';
                     $imprimir_total = false;
                 }
             }
@@ -254,15 +282,7 @@
                     }
                     if(count($carrito)<1)
                     {
-                        $respuesta .= '<style>
-                                            .carrito-vacio{text-align:center;margin-top:20px;}
-                                            .carrito-vacio p{font-size: 18pt;font-weight:bold;line-height:1.2;margin-bottom:20px;}
-                                            .carrito-vacio a{font-size: 14pt;background-color:#0d6bb7;color:#fff;text-decoration:none;padding:10px 20px;}
-                                        </style>
-                                        <div class="carrito-vacio">
-                                            <p>¡No hay productos en tu carrito!</p>
-                                            <a href="'.SERVERURL.'">Volver a la tienda</a>
-                                        </div>';
+                        $respuesta .= '<p style="margin-top:20px;">¡Tu carrito esta vacio!</p>';
                         $imprimir_total = false;
                     }
                 }
@@ -304,6 +324,68 @@
                             </div>';
             }
             return $respuesta;
+        }
+
+        public function cargar_datos_usuario_controlador($tipo_usuario, $id_usuario)
+        {
+            $datosCliente = [
+                "Nit" => "",
+                "NombreFactura" => "",
+                "DireccionFactura" => "",
+                "Nombre" => "",
+                "Apellidos" => "",
+                "Correo" => "",
+                "Telefono" => "",
+                "Direccion1" => "",
+                "Direccion2" => "",
+                "Pais" => "",
+                "Departamento" => "",
+                "Municipio" => "",
+                "Postal" => ""
+            ];
+            if ($tipo_usuario=="personal")
+            {
+                $datos = cargarInfoCarritoModelo::cargar_datos_usuario_personal($id_usuario);
+                if($datos->rowCount()>0)
+                {
+                    $datosGuardados = $datos->fetch();
+                    $datosCliente["Nit"] = $datosGuardados["facturacion_nit"];
+                    $datosCliente["NombreFactura"] = $datosGuardados["facturacion_nombre"];
+                    $datosCliente["DireccionFactura"] = $datosGuardados["facturacion_direccion"];
+                    $datosCliente["Nombre"] = $datosGuardados["entrega_nombre"];
+                    $datosCliente["Apellidos"] = $datosGuardados["entrega_apellidos"];
+                    $datosCliente["Correo"] = $datosGuardados["correo"];
+                    $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
+                    $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
+                    $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];
+                    $datosCliente["Pais"] = $datosGuardados["entrega_pais"];
+                    $datosCliente["Departamento"] = $datosGuardados["entrega_departamento"];
+                    $datosCliente["Municipio"] = $datosGuardados["entrega_municipio"];
+                    $datosCliente["Postal"] = $datosGuardados["entrega_codigo_postal"];
+                }
+            }
+            elseif ($tipo_usuario=="empresarial")
+            {
+                $datos = cargarInfoCarritoModelo::cargar_datos_usuario_empresarial($id_usuario);
+                if($datos->rowCount()>0)
+                {
+                    $datosGuardados = $datos->fetch();
+                    $datosCliente["Nit"] = $datosGuardados["nit"];
+                    $datosCliente["NombreFactura"] = $datosGuardados["institucion"];
+                    $datosCliente["DireccionFactura"] = $datosGuardados["direccion"];
+                    $datosCliente["Nombre"] = $datosGuardados["entrega_nombre"];
+                    $datosCliente["Apellidos"] = $datosGuardados["entrega_apellidos"];
+                    $datosCliente["Correo"] = $datosGuardados["correo"];
+                    $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
+                    $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
+                    $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];
+                    $datosCliente["Pais"] = $datosGuardados["entrega_pais"];
+                    $datosCliente["Departamento"] = $datosGuardados["entrega_departamento"];
+                    $datosCliente["Municipio"] = $datosGuardados["entrega_municipio"];
+                    $datosCliente["Postal"] = $datosGuardados["entrega_codigo_postal"];
+                }
+            }
+            return $datosCliente;
         }
         
     }

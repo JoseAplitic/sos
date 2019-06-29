@@ -51,7 +51,7 @@
                                         $peticionAjax = true;
                                         require_once "../controladores/loginControlador.php";
                                         $login = new loginControlador();
-                                        echo $login->iniciar_sesion_automatica_controlador($correo, $password, "personal", "registro-exitoso/");
+                                        echo $login->iniciar_sesion_automatica_registro_controlador($correo, $password, "personal", "registro-exitoso/");
                                     }
                                     else
                                     {
@@ -161,7 +161,7 @@
                                                             $peticionAjax = true;
                                                             require_once "../controladores/loginControlador.php";
                                                             $login = new loginControlador();
-                                                            echo $login->iniciar_sesion_automatica_controlador($correo, $password, "empresarial", "registro-exitoso/");
+                                                            echo $login->iniciar_sesion_automatica_registro_controlador($correo, $password, "empresarial", "registro-exitoso/");
                                                         }
                                                         else
                                                         {
