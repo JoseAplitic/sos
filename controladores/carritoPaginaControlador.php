@@ -268,14 +268,30 @@
                 }
                 else
                 {
-                    $respuesta .= '<p style="margin-top:20px;">¡Tu carrito esta vacio!</p>';
+                    $respuesta .= '<style>
+                                        .carrito-vacio{text-align:center;margin-top:20px;}
+                                        .carrito-vacio p{font-size: 18pt;font-weight:bold;line-height:1.2;margin-bottom:20px;}
+                                        .carrito-vacio a{font-size: 14pt;background-color:#0d6bb7;color:#fff;text-decoration:none;padding:10px 20px;}
+                                    </style>
+                                    <div class="carrito-vacio">
+                                        <p>¡No hay productos en tu carrito!</p>
+                                        <a href="'.SERVERURL.'">Volver a la tienda</a>
+                                    </div>';
                     $imprimir_total = false;
                 }
                 
             }
             else
             {
-                $respuesta .= '<p style="margin-top:20px;">¡Ha ocurrido un error!</p>';
+                $respuesta .= '<style>
+                                    .carrito-vacio{text-align:center;margin-top:20px;}
+                                    .carrito-vacio p{font-size: 18pt;font-weight:bold;line-height:1.2;margin-bottom:20px;}
+                                    .carrito-vacio a{font-size: 14pt;background-color:#0d6bb7;color:#fff;text-decoration:none;padding:10px 20px;}
+                                </style>
+                                <div class="carrito-vacio">
+                                    <p>¡Ha ocurrido un error!</p>
+                                    <a href="'.SERVERURL.'">Volver a la tienda</a>
+                                </div>';
             }
             if($imprimir_total == true)
             {

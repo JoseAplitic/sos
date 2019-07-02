@@ -1,5 +1,6 @@
+
 <?php
-if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["direccion-factura"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["correo"]) && isset($_POST["telefono"]) && isset($_POST["direccion-linea-1"]) && isset($_POST["direccion-linea-2"]) && isset($_POST["pais"]) && isset($_POST["departamento"]) && isset($_POST["municipio"]) && isset($_POST["postal"]) && isset($_POST["observaciones"])):
+//if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["direccion-factura"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["correo"]) && isset($_POST["telefono"]) && isset($_POST["direccion-linea-1"]) && isset($_POST["direccion-linea-2"]) && isset($_POST["pais"]) && isset($_POST["departamento"]) && isset($_POST["municipio"]) && isset($_POST["postal"]) && isset($_POST["observaciones"])):
     
     $tipo = "";
     $id_usuario = "";
@@ -13,25 +14,25 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
         $tipo = "invitado";
     }
 
-    $datosPedidoCliente = [
-        "Nit" => $_POST["nit"],
-        "NombreFactura" => $_POST["nombre-factura"],
-        "DireccionFactura" => $_POST["direccion-factura"],
-        "Nombre" => $_POST["nombre"],
-        "Apellidos" => $_POST["apellidos"],
-        "Correo" => $_POST["correo"],
-        "Telefono" => $_POST["telefono"],
-        "Direccion1" => $_POST["direccion-linea-1"],
-        "Direccion2" => $_POST["direccion-linea-2"],
-        "Pais" => $_POST["pais"],
-        "Departamento" => $_POST["departamento"],
-        "Municipio" => $_POST["municipio"],
-        "Postal" => $_POST["postal"],
-        "Observaciones" => $_POST["observaciones"]
-    ];
-    require_once "./controladores/cargarInfoCarritoControlador.php";
-    $instanciaCargarInfoCarrito = new cargarInfoCarritoControlador();
-    $instanciaCargarInfoCarrito->guardar_datos_usuario_controlador($tipo, $id_usuario, $datosPedidoCliente);
+    // $datosPedidoCliente = [
+    //     "Nit" => $_POST["nit"],
+    //     "NombreFactura" => $_POST["nombre-factura"],
+    //     "DireccionFactura" => $_POST["direccion-factura"],
+    //     "Nombre" => $_POST["nombre"],
+    //     "Apellidos" => $_POST["apellidos"],
+    //     "Correo" => $_POST["correo"],
+    //     "Telefono" => $_POST["telefono"],
+    //     "Direccion1" => $_POST["direccion-linea-1"],
+    //     "Direccion2" => $_POST["direccion-linea-2"],
+    //     "Pais" => $_POST["pais"],
+    //     "Departamento" => $_POST["departamento"],
+    //     "Municipio" => $_POST["municipio"],
+    //     "Postal" => $_POST["postal"],
+    //     "Observaciones" => $_POST["observaciones"]
+    // ];
+    // require_once "./controladores/cargarInfoCarritoControlador.php";
+    // $instanciaCargarInfoCarrito = new cargarInfoCarritoControlador();
+    // $instanciaCargarInfoCarrito->guardar_datos_usuario_controlador($tipo, $id_usuario, $datosPedidoCliente);
     /*
     */
     ini_set('display_errors', 1);
@@ -539,7 +540,6 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
 		</div>
     </main>
 
-<?php else: ?>
-    <script> window.location="<?=SERVERURL?>facturacion-y-envio/" </script>
-<?php endif; ?>
-
+<?php //else: ?>
+    <!-- <script> window.location="<?//=SERVERURL?>facturacion-y-envio/" </script> -->
+<?php //endif; ?>
