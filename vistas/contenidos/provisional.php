@@ -543,3 +543,31 @@
 <?php //else: ?>
     <!-- <script> window.location="<?//=SERVERURL?>facturacion-y-envio/" </script> -->
 <?php //endif; ?>
+
+
+<div class="registro-contenido">
+    <div class="registro-contenido-row row-1">
+    </div>
+    <div class="registro-contenido-row row-2">
+        <div class="logo">
+            <img src="<?php echo SERVERURL; ?>vistas/assets/img/logo.png" alt="Smart Office Solutions">
+        </div>
+        <div class="beneficios">
+            <p>Crea una cuenta en gosmartoffice.com para conseguir estos beneficios y muchos más:</p>
+            <div class="lista-beneficios">
+                <div class="beneficio">
+                    <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/garantia-login.png"></div>
+                    <div class="texto"><p>Acceso a planes de protección extendida.</p></div>
+                </div>
+                <div class="beneficio">
+                    <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/soporte-login.png"></div>
+                    <div class="texto"><p>Asesoría personalizada en todas tus compras.</p></div>
+                </div>
+                <div class="beneficio">
+                    <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/website-login.png"></div>
+                    <div class="texto"><p>Información en línea de productos mejorada.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

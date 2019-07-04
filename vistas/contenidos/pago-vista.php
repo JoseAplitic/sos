@@ -1,5 +1,6 @@
+
 <?php
-if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["direccion-factura"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["correo"]) && isset($_POST["telefono"]) && isset($_POST["direccion-linea-1"]) && isset($_POST["direccion-linea-2"]) && isset($_POST["pais"]) && isset($_POST["departamento"]) && isset($_POST["municipio"]) && isset($_POST["postal"]) && isset($_POST["observaciones"])):
+//if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["direccion-factura"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["correo"]) && isset($_POST["telefono"]) && isset($_POST["direccion-linea-1"]) && isset($_POST["direccion-linea-2"]) && isset($_POST["pais"]) && isset($_POST["departamento"]) && isset($_POST["municipio"]) && isset($_POST["postal"]) && isset($_POST["observaciones"])):
     
     $tipo = "";
     $id_usuario = "";
@@ -13,25 +14,25 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
         $tipo = "invitado";
     }
 
-    $datosPedidoCliente = [
-        "Nit" => $_POST["nit"],
-        "NombreFactura" => $_POST["nombre-factura"],
-        "DireccionFactura" => $_POST["direccion-factura"],
-        "Nombre" => $_POST["nombre"],
-        "Apellidos" => $_POST["apellidos"],
-        "Correo" => $_POST["correo"],
-        "Telefono" => $_POST["telefono"],
-        "Direccion1" => $_POST["direccion-linea-1"],
-        "Direccion2" => $_POST["direccion-linea-2"],
-        "Pais" => $_POST["pais"],
-        "Departamento" => $_POST["departamento"],
-        "Municipio" => $_POST["municipio"],
-        "Postal" => $_POST["postal"],
-        "Observaciones" => $_POST["observaciones"]
-    ];
-    require_once "./controladores/cargarInfoCarritoControlador.php";
-    $instanciaCargarInfoCarrito = new cargarInfoCarritoControlador();
-    $instanciaCargarInfoCarrito->guardar_datos_usuario_controlador($tipo, $id_usuario, $datosPedidoCliente);
+    // $datosPedidoCliente = [
+    //     "Nit" => $_POST["nit"],
+    //     "NombreFactura" => $_POST["nombre-factura"],
+    //     "DireccionFactura" => $_POST["direccion-factura"],
+    //     "Nombre" => $_POST["nombre"],
+    //     "Apellidos" => $_POST["apellidos"],
+    //     "Correo" => $_POST["correo"],
+    //     "Telefono" => $_POST["telefono"],
+    //     "Direccion1" => $_POST["direccion-linea-1"],
+    //     "Direccion2" => $_POST["direccion-linea-2"],
+    //     "Pais" => $_POST["pais"],
+    //     "Departamento" => $_POST["departamento"],
+    //     "Municipio" => $_POST["municipio"],
+    //     "Postal" => $_POST["postal"],
+    //     "Observaciones" => $_POST["observaciones"]
+    // ];
+    // require_once "./controladores/cargarInfoCarritoControlador.php";
+    // $instanciaCargarInfoCarrito = new cargarInfoCarritoControlador();
+    // $instanciaCargarInfoCarrito->guardar_datos_usuario_controlador($tipo, $id_usuario, $datosPedidoCliente);
     /*
     */
     ini_set('display_errors', 1);
@@ -41,8 +42,15 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
      $bill_to_address_line1 = $_POST['bill_to_address_line1']
     *///             
 ?>
-<link rel="stylesheet" href="<?php echo SERVERURL . 'vistas/css/bootstrap.min.css';?>">
-<script src="<?php echo SERVERURL . 'vistas/js/bootstrap.min.js';?>"></script>
+
+    <script>
+        $(document).ready( function(){
+            $('.metodo-titulo').click(function(){
+                $('.opcion').removeClass('activo');
+                $(this).parent('.opcion').addClass('activo');
+            });
+        });
+    </script>
 
     <main class="full-width">
 
@@ -116,39 +124,42 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
 			.carrito-contenedor .menu-proceso-compra .paso>a>p{flex:1 0 auto;text-align:center;font-size:14pt;}
 			.carrito-contenedor .menu-proceso-compra .paso>a>img{height:40px;width:auto;flex: 0 0 auto;position:relative;right:-20px;}
 
-			.carrito-contenedor .carrito-items{margin-bottom: 30px;}
-			.carrito-contenedor .carrito-items .row{display:flex;flex-flow:row nowrap;align-items:center;border-bottom:1px solid #b2b2b2;}
-			.carrito-contenedor .carrito-items .row .w60{width:60%;}
-			.carrito-contenedor .carrito-items .row .w20{width:20%;}
-			.carrito-contenedor .carrito-items .row.cabecera{padding:20px 20px;}
-			.carrito-contenedor .carrito-items .row.cabecera div p{text-align:center;color: #000;font-size:14pt;}
-			.carrito-contenedor .carrito-items .row.cabecera div.texto-left p{text-align:left;}
+			.carrito-contenedor .carrito-contenido{display: flex;flex-flow:row wrap;padding: 30px 20px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row{width: 50%;padding: 20px;}
+            .carrito-contenedor .carrito-contenido .carrito-contenido-row .titulo{border-bottom: 1px solid #9e9d9d;padding-bottom:20px;margin-bottom:20px;}
+            .carrito-contenedor .carrito-contenido .carrito-contenido-row .titulo .encabezado{font-size:24pt;font-weight:bold;margin-bottom:5px;}
+            .carrito-contenedor .carrito-contenido .carrito-contenido-row .titulo .comentario{color:#0d6bb7;font-size:12pt;}
 			
-			.carrito-contenedor .carrito-items .row.item{padding:20px 10px;}
-			.carrito-contenedor .carrito-items .row.item .column > p{text-align:center;font-weight:bold;font-size:14pt;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad{display:flex;flex-flow:column wrap;align-items:center;justify-content:center;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad form{display:block;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad form input[type="number"]{width:90px;padding:7px;font-weight:bold;font-size:14pt;text-align:center;border:1px solid #c9c9c9;background-color:#f5f5f5;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad form input:focus{outline:0px;border-color:#ec110b;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad form input[type="submit"]{margin-top:5px;border-width:0px;background:transparent;color:#0d6bb7;}
-			.carrito-contenedor .carrito-items .row.item .column.cantidad form input[type="submit"]:hover{text-decoration:underline;cursor:pointer;}
-			.carrito-contenedor .carrito-items .row.item .producto{display:flex;flex-flow:row nowrap;align-items:center;}
-			.carrito-contenedor .carrito-items .row.item .producto .imagen{width:100px;flex: 0 0 auto;}
-			.carrito-contenedor .carrito-items .row.item .producto .imagen img{width:100%;display:block;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto{flex: 1 1 auto;padding-left:20px;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto a{text-decoration:none;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto a:hover .nombre{color:#ec110b;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto a:hover .sku{color:#ec110b;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto a .nombre{display:block;font-size:14pt;font-weight:normal;color:#000;margin-bottom:5px;}
-			.carrito-contenedor .carrito-items .row.item .producto .texto a .sku{display:block;color:#7b7b7b;font-size:10pt;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion{padding-bottom:20px;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion:last-child{border-bottom-width: 0px;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-titulo{display:flex;flex-flow:row wrap;align-items:center;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-titulo:hover{cursor:pointer;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-titulo .icono{width:30px;height:30px;position:relative;border:1px solid #cfcfcf;border-radius:50%;flex: 0 0 auto;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion.activo .metodo-titulo .icono .centro{position:absolute;top:calc(50% - 25%);left:calc(50% - 25%);width:50%;height:50%;background-color:#0d6bb7;border-radius:50%;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-titulo .texto{flex:1 1 auto;padding-left:10px;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-titulo .texto p{font-size:14pt;font-weight:bold;}
+
+
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido{display:none;padding-top:20px;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion.activo .metodo-contenido{display:block;}
 			
-			.carrito-contenedor .total-contenedor{display:flex;flex-flow:row nowrap;justify-content:flex-end;}
-			.carrito-contenedor .total-contenedor .total{width:40%;background-color:#f5f5f5;border:1px solid #c9c9c9;padding:20px 30px;display:flex;flex-flow:row wrap;align-items:center;}
-			.carrito-contenedor .total-contenedor .total .texto-total,.carrito-contenedor .total-contenedor .total .numero-total{width:50%;font-size:18pt;font-weight:bold;}
-			.carrito-contenedor .total-contenedor .total .numero-total{text-align:right;}
-			.carrito-contenedor .total-contenedor .total .enlace{width:100%;margin-top:20px;}
-			.carrito-contenedor .total-contenedor .total .enlace a{width:100%;display:block;background-color:#6cb819;font-size:18pt;font-weight:bold;color:#fff;text-decoration:none;padding:10px;text-align:center;}
-			.carrito-contenedor .total-contenedor .total .enlace a:hover{background-color:#5fa116;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .continuar{text-align:center;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .continuar input[type="submit"]{background-color: #0d6bb7;border-width: 0px !important;border-radius: 0px;display: flex;margin: 10px auto;width: max-content;color: #fff;padding: 15px 150px;font-weight: bold;font-size:14pt;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .continuar input[type="submit"]:hover{cursor:pointer;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .regresar{text-align:center;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .regresar a{font-size:12pt;color: #777575;text-decoration:none;}
+            .carrito-contenedor .carrito-contenido .opciones .opcion .metodo-contenido .metodo-botones .regresar a:hover{text-decoration:underline;}
+
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2{background-color:#ec110b;color:#fff;padding: 120px 20px 120px 20px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .logo{text-align:center;border-bottom:1px solid #fff;padding-bottom: 50px;margin-bottom:50px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .logo > img{width:220px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios > p{padding:0px 50px;text-align:center;font-weight:bold;font-size:14pt;margin-bottom:50px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios{padding:0px 100px 0px 120px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio{display:flex;flex-flow:row nowrap;align-items:center;margin-bottom:30px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .icono{width:60px;flex: 0 0 auto;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .icono img{width:100%;display: block;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .texto{flex: 1 1 auto;padding-left:20px;}
+			.carrito-contenedor .carrito-contenido .carrito-contenido-row.row-2 > .beneficios .lista-beneficios .beneficio .texto p{font-size: 16pt;width: 100%;}
 			
 
 		</style>
@@ -196,6 +207,110 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
 					<p>Realiza el pago</p>
 				</div>
 			</div>
+                
+            <div class="carrito-contenido">
+                <div class="carrito-contenido-row row-1">
+                    <div class="titulo">
+                        <p class="encabezado">Datos de pago</p>
+                        <p class="comentario">Ingresa la información para la manera de pago seleccionada.</p>
+                    </div>
+                    <div class="metodo-pago">
+                        <div class="opciones">
+                            <div class="opcion activo">
+                                <div class="metodo-titulo">
+                                    <div class="icono">
+                                        <div class="centro"></div>
+                                    </div>
+                                    <div class="texto">
+                                        <p>Pago por cheque ó deposito bancario</p>
+                                    </div>
+                                </div>
+                                <div class="metodo-contenido">
+                                    <div class="metodo-elementos">
+                                    aqui va el contenido
+                                    </div>
+                                    <div class="metodo-botones">
+                                        <div class="continuar">
+                                            <input type="submit" value="Continuar">
+                                        </div>
+                                        <div class="regresar">
+                                            <a href="<?=SERVERURL?>facturacion-y-envio/">Regresar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opcion">
+                                <div class="metodo-titulo">
+                                    <div class="icono">
+                                        <div class="centro"></div>
+                                    </div>
+                                    <div class="texto">
+                                        <p>Pago por VisaNet o Mastercard</p>
+                                    </div>
+                                </div>
+                                <div class="metodo-contenido">
+                                    <div class="metodo-elementos">
+                                    aqui va el contenido
+                                    </div>
+                                    <div class="metodo-botones">
+                                        <div class="continuar">
+                                            <input type="submit" value="Continuar">
+                                        </div>
+                                        <div class="regresar">
+                                            <a href="<?=SERVERURL?>facturacion-y-envio/">Regresar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opcion">
+                                <div class="metodo-titulo">
+                                    <div class="icono">
+                                        <div class="centro"></div>
+                                    </div>
+                                    <div class="texto">
+                                        <p>Crédito empresas</p>
+                                    </div>
+                                </div>
+                                <div class="metodo-contenido">
+                                    <div class="metodo-elementos">
+                                    aqui va el contenido
+                                    </div>
+                                    <div class="metodo-botones">
+                                        <div class="continuar">
+                                            <input type="submit" value="Continuar">
+                                        </div>
+                                        <div class="regresar">
+                                            <a href="<?=SERVERURL?>facturacion-y-envio/">Regresar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carrito-contenido-row row-2">
+                    <div class="logo">
+                        <img src="<?php echo SERVERURL; ?>vistas/assets/img/logo.png" alt="Smart Office Solutions">
+                    </div>
+                    <div class="beneficios">
+                        <p>Crea una cuenta en gosmartoffice.com para conseguir estos beneficios y muchos más:</p>
+                        <div class="lista-beneficios">
+                            <div class="beneficio">
+                                <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/garantia-login.png"></div>
+                                <div class="texto"><p>Acceso a planes de protección extendida.</p></div>
+                            </div>
+                            <div class="beneficio">
+                                <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/soporte-login.png"></div>
+                                <div class="texto"><p>Asesoría personalizada en todas tus compras.</p></div>
+                            </div>
+                            <div class="beneficio">
+                                <div class="icono"><img src="<?php echo SERVERURL; ?>vistas/assets/img/website-login.png"></div>
+                                <div class="texto"><p>Información en línea de productos mejorada.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <div id="pago" class="full-width">
                     <?php if (isset($_REQUEST['reason_code'])): ?>
                     <!-- Open Wrapper Content -->
@@ -534,12 +649,10 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
                                 <!-- CREDIT CARD FORM ENDS HERE -->
                             </form>
                         <?php endif; ?>
-
                 </div>
 		</div>
     </main>
 
-<?php else: ?>
-    <script> window.location="<?=SERVERURL?>facturacion-y-envio/" </script>
-<?php endif; ?>
-
+<?php //else: ?>
+    <!-- <script> window.location="<?//=SERVERURL?>facturacion-y-envio/" </script> -->
+<?php //endif; ?>

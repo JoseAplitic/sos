@@ -354,7 +354,7 @@
                     $datosCliente["DireccionFactura"] = $datosGuardados["facturacion_direccion"];
                     $datosCliente["Nombre"] = $datosGuardados["entrega_nombre"];
                     $datosCliente["Apellidos"] = $datosGuardados["entrega_apellidos"];
-                    $datosCliente["Correo"] = $datosGuardados["correo"];
+                    $datosCliente["Correo"] = $datosGuardados["entrega_correo"];
                     $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
                     $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
                     $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];
@@ -375,7 +375,7 @@
                     $datosCliente["DireccionFactura"] = $datosGuardados["direccion"];
                     $datosCliente["Nombre"] = $datosGuardados["entrega_nombre"];
                     $datosCliente["Apellidos"] = $datosGuardados["entrega_apellidos"];
-                    $datosCliente["Correo"] = $datosGuardados["correo"];
+                    $datosCliente["Correo"] = $datosGuardados["entrega_correo"];
                     $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
                     $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
                     $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];

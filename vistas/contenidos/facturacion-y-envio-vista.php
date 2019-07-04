@@ -212,7 +212,7 @@ $hayCarrito = $instanciaCargarInfoCarrito->verificar_carrito_controlador($tipo, 
 								<label for="apellidos">Apellidos *</label>
 								<input id="apellidos" name="apellidos" type="text" value="<?=$datosCliente["Apellidos"]?>" required="">
 								<label for="correo">Correo electrónico *</label>
-								<input id="correo" name="correo" type="text" value="<?=$datosCliente["Correo"]?>" required="" readonly>
+								<input id="correo" name="correo" type="text" value="<?=$datosCliente["Correo"]?>" required="">
 								<label for="telefono">Teléfono *</label>
 								<input id="telefono" name="telefono" type="text" value="<?=$datosCliente["Telefono"]?>" required="">
 								<label for="direccion-linea-1">Dirección *</label>

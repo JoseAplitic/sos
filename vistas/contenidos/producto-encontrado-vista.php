@@ -420,7 +420,7 @@
         $('#small-img-roll').css('left', '0')
         }
     }
-    })
+    });
 
     $(document).ready( function() {
         tabify( '#tabs' );
