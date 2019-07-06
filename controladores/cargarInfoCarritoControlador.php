@@ -337,8 +337,6 @@
                 "Correo" => "",
                 "Telefono" => "",
                 "Direccion1" => "",
-                "Direccion2" => "",
-                "Pais" => "",
                 "Departamento" => "",
                 "Municipio" => "",
                 "Postal" => ""
@@ -357,8 +355,6 @@
                     $datosCliente["Correo"] = $datosGuardados["entrega_correo"];
                     $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
                     $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
-                    $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];
-                    $datosCliente["Pais"] = $datosGuardados["entrega_pais"];
                     $datosCliente["Departamento"] = $datosGuardados["entrega_departamento"];
                     $datosCliente["Municipio"] = $datosGuardados["entrega_municipio"];
                     $datosCliente["Postal"] = $datosGuardados["entrega_codigo_postal"];
@@ -378,8 +374,6 @@
                     $datosCliente["Correo"] = $datosGuardados["entrega_correo"];
                     $datosCliente["Telefono"] = $datosGuardados["entrega_telefono"];
                     $datosCliente["Direccion1"] = $datosGuardados["entrega_direccion_1"];
-                    $datosCliente["Direccion2"] = $datosGuardados["entrega_direccion_2"];
-                    $datosCliente["Pais"] = $datosGuardados["entrega_pais"];
                     $datosCliente["Departamento"] = $datosGuardados["entrega_departamento"];
                     $datosCliente["Municipio"] = $datosGuardados["entrega_municipio"];
                     $datosCliente["Postal"] = $datosGuardados["entrega_codigo_postal"];

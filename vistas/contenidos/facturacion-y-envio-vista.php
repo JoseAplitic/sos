@@ -171,6 +171,21 @@ $hayCarrito = $instanciaCargarInfoCarrito->verificar_carrito_controlador($tipo, 
 					.datos-contenedor .datos-contenido .datos-contenido-row.row-3 .regresar a:hover{text-decoration:underline;}
 				</style>
 				<form action="<?=SERVERURL?>pago/" method="POST">
+				<input type="hidden" name="access_key" value="<?php echo ACCESS_KEY ?>">
+					<input type="hidden" name="profile_id" value="<?php echo PROFILE_ID ?>">
+					<input type="hidden" name="transaction_uuid" value="<?php echo uniqid() ?>">
+					<input type="hidden" name="signed_field_names" value="access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,payment_method,bill_to_forename,bill_to_surname,bill_to_email,bill_to_phone,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code,device_fingerprint_id">
+					<input type="hidden" name="unsigned_field_names" value="card_type,card_number,card_expiry_date,card_cvn,customer_ip_address">
+					<input type="hidden" name="signed_date_time" value="<?php echo gmdate("Y-m-d\TH:i:s\Z"); ?>">
+					<input type="hidden" name="locale" value="en">
+					<input type="hidden" name="customer_ip_address" value="<?php echo $_SERVER["REMOTE_ADDR"];?>" />
+					<input type="hidden" name="device_fingerprint_id" value="" />
+					<input type="hidden" name="transaction_type" value="sale">
+					<input type="hidden" name="reference_number" value="<?php echo time();?>">
+					<input type="hidden" name="currency" value="GTQ">
+					<input type="hidden" name="payment_method" value="card">
+					<input type="hidden" name="bill_to_address_country" value="GT" />
+					<input type="hidden" name="amount" value="12">
 					<div class="datos-contenido">
 						<div class="datos-contenido-row row-1">
 							<div class="titulo">
@@ -208,28 +223,25 @@ $hayCarrito = $instanciaCargarInfoCarrito->verificar_carrito_controlador($tipo, 
 							</div>
 							<div class="formulario">
 								<label for="nombre">Nombre *</label>
-								<input id="nombre" name="nombre" type="text" value="<?=$datosCliente["Nombre"]?>" required="">
+								<input id="nombre" name="bill_to_forename" type="text" value="<?=$datosCliente["Nombre"]?>" required="">
 								<label for="apellidos">Apellidos *</label>
-								<input id="apellidos" name="apellidos" type="text" value="<?=$datosCliente["Apellidos"]?>" required="">
+								<input id="apellidos" name="bill_to_surname" type="text" value="<?=$datosCliente["Apellidos"]?>" required="">
 								<label for="correo">Correo electrónico *</label>
-								<input id="correo" name="correo" type="text" value="<?=$datosCliente["Correo"]?>" required="">
+								<input id="correo" name="bill_to_email" type="text" value="<?=$datosCliente["Correo"]?>" required="">
 								<label for="telefono">Teléfono *</label>
-								<input id="telefono" name="telefono" type="text" value="<?=$datosCliente["Telefono"]?>" required="">
+								<input id="telefono" name="bill_to_phone" type="text" value="<?=$datosCliente["Telefono"]?>" required="">
 								<label for="direccion-linea-1">Dirección *</label>
-								<input id="direccion-linea-1" name="direccion-linea-1" type="text" value="<?=$datosCliente["Direccion1"]?>" required="">
-								<input id="direccion-linea-2" name="direccion-linea-2" type="text" value="<?=$datosCliente["Direccion2"]?>" required="">
-								<label for="pais">País *</label>
-								<input id="pais" name="pais" type="text" value="<?=$datosCliente["Pais"]?>" required="">
+								<input id="direccion-linea-1" name="bill_to_address_line1" type="text" value="<?=$datosCliente["Direccion1"]?>" required="">
 								<label for="departamento">Departamento *</label>
-								<input id="departamento" name="departamento" type="text" value="<?=$datosCliente["Departamento"]?>" required="">
+								<input id="departamento" name="bill_to_address_state" type="text" value="<?=$datosCliente["Departamento"]?>" required="">
 								<div class="form-dos-columnas">
 									<div class="form-columna form-columna-1">
 										<label for="municipio">Municipio *</label>
-										<input id="municipio" name="municipio" type="text" value="<?=$datosCliente["Municipio"]?>" required="">
+										<input id="municipio" name="bill_to_address_city" type="text" value="<?=$datosCliente["Municipio"]?>" required="">
 									</div>
 									<div class="form-columna form-columna-2">
 										<label for="postal">Código postal *</label>
-										<input id="postal" name="postal" type="text" value="<?=$datosCliente["Postal"]?>" required="">
+										<input id="postal" name="bill_to_address_postal_code" type="text" value="<?=$datosCliente["Postal"]?>" required="">
 									</div>
 								</div>
 								<label for="observaciones">Observaciones</label>
