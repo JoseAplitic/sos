@@ -169,8 +169,10 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
             .form-dos-columnas .form-columna-2{padding-left:10px;}
 
             .metodo-pago .opciones .opcion form label{display:block;font-size:14pt;font-weight:bold;margin-bottom:5px;}
-            .metodo-pago .opciones .opcion form input{display:block;width:100%;font-size:14pt;margin-bottom:10px;padding:10px;border-radius:5px;border: 1px solid #c9c9c9;outline:0;}
+            .metodo-pago .opciones .opcion form input{display:block;width:100%;font-size:14pt;margin-bottom:20px;padding:10px;border-radius:5px;border: 1px solid #c9c9c9;outline:0;}
             .metodo-pago .opciones .opcion form input:focus{border-color: #ec110b;}
+            .metodo-pago .opciones .opcion form select{display:block;width:100%;font-size:14pt;margin-bottom:20px;padding:10px;border-radius:5px;border: 1px solid #c9c9c9;outline:0;}
+            .metodo-pago .opciones .opcion form select:focus{border-color: #ec110b;}
             .metodo-pago .opciones .opcion form textarea{display:block;width:100%;font-size:14pt;margin-bottom:10px;padding:10px;border-radius:5px;border: 1px solid #c9c9c9;outline:0;height:120px;resize: none;}
             .metodo-pago .opciones .opcion form textarea:focus{border-color: #ec110b;}
 
