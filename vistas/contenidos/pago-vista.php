@@ -345,26 +345,28 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
                                     </form>
                                 </div>
                             </div>
-                            <div class="opcion">
-                                <div class="metodo-titulo">
-                                    <div class="icono">
-                                        <div class="centro"></div>
+                            <?php if ($tipo=="empresarial"): ?>
+                                <div class="opcion">
+                                    <div class="metodo-titulo">
+                                        <div class="icono">
+                                            <div class="centro"></div>
+                                        </div>
+                                        <div class="texto">
+                                            <p>Crédito empresas</p>
+                                        </div>
                                     </div>
-                                    <div class="texto">
-                                        <p>Crédito empresas</p>
-                                    </div>
-                                </div>
-                                <div class="metodo-contenido">
-                                    <div class="metodo-elementos">
-                                    aqui va el contenido
-                                    </div>
-                                    <div class="metodo-botones">
-                                        <div class="continuar">
-                                            <input type="submit" value="Continuar">
+                                    <div class="metodo-contenido">
+                                        <div class="metodo-elementos">
+                                            <p>Continua para que tu pedido sea procesado.</p>
+                                        </div>
+                                        <div class="metodo-botones">
+                                            <div class="continuar">
+                                                <input type="submit" value="Continuar">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>                    
                     <div class="regresar">

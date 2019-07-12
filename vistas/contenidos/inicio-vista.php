@@ -123,7 +123,7 @@
 			main .home-element-2 .categories .categories-slideshow > a{position: absolute;top: calc(50% - 24px);color: #ff110b;font-size: 48px;-webkit-transition: color 0.3s;transition: color 0.3s;}
 			main .home-element-2 .categories .categories-slideshow > a:hover{color: #d00d08;-webkit-transition: color 0.3s;transition: color 0.3s;}
 			i.yellow{color: #ffbe00;}i.gray{color: #6b6b6b;}
-		
+			footer{background-color:#fff;}
 		</style>
 
 		<div class="value-proposal-box">

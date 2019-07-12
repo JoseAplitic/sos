@@ -261,5 +261,20 @@ $(document).ready(function(){
 			}
 		});
 
-    });
+	});
+
+	$.ajaxChimp.translations.es = {
+		'submit': 'Enviando...',
+		0: 'Te hemos enviado un email de confirmación',
+		1: 'Por favor, introduzca un valor',
+		2: 'Una dirección de correo electrónico debe contener una sola @',
+		3: 'La parte de dominio de la dirección de correo electrónico no es válida (la parte después de la @:)',
+		4: 'La parte de usuario de la dirección de correo electrónico no es válida (la parte antes de la @:)',
+		5: 'Esta dirección de correo electrónico se ve falso o no válido. Por favor, introduce una dirección de correo electrónico real'
+	}
+	
+	$('#SuscripcionMailChimp').ajaxChimp({
+		url: 'https://gosmartoffice.us20.list-manage.com/subscribe/post?u=7e62a596c71c11db2d6a21b58&amp;id=b85c4ea629',
+		language: 'es'
+	});
 });

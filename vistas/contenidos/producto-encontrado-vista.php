@@ -174,10 +174,6 @@
             <h2><?php echo $datosProducto['nombre']; ?></h2>
             <p>
                 <?php
-                    if($datosProducto['sku']!="")
-                    {
-                        echo "SKU: ".$datosProducto['sku'];
-                    }
                     if ($datosProducto['mpn']!="")
                     {
                         echo " Número de parte: ".$datosProducto['mpn'];
