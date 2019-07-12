@@ -166,8 +166,6 @@
 							</div>
 
 							<p><input id="condiciones" type="checkbox" name="terminos"><label for="condiciones">Acepto los Términos y Condiciones y Aviso de Privacidad.</label></p>
-
-							<p><input id="newsletter" type="checkbox" name="newsletter"><label for="newsletter">Deseo inscribirme al newsletter de Smart Office Solutions.</label></p>
 							
 							<input type="submit" value="Crear Cuenta">
 
