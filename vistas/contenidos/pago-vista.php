@@ -26,7 +26,8 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
         "Departamento" => $_POST["bill_to_address_state"],
         "Municipio" => $_POST["bill_to_address_city"],
         "Postal" => $_POST["bill_to_address_postal_code"],
-        "Observaciones" => $_POST["observaciones"]
+        "Observaciones" => $_POST["observaciones"],
+        "Monto" => $_POST["amount"]
     ];
     require_once "./controladores/cargarInfoCarritoControlador.php";
     $instanciaCargarInfoCarrito = new cargarInfoCarritoControlador();
@@ -176,6 +177,9 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
             .metodo-pago .opciones .opcion form textarea{display:block;width:100%;font-size:14pt;margin-bottom:10px;padding:10px;border-radius:5px;border: 1px solid #c9c9c9;outline:0;height:120px;resize: none;}
             .metodo-pago .opciones .opcion form textarea:focus{border-color: #ec110b;}
 
+            a.login{background-color: #0d6bb7;display: flex;margin: 10px auto;width: max-content;color: #fff;padding: 15px 150px;font-weight: bold;font-size:14pt;text-decoration:none;}
+            a.registro{background-color: #0d6bb7;display: flex;margin: 10px auto;width: max-content;color: #fff;padding: 15px 150px;font-weight: bold;font-size:14pt;text-decoration:none;}
+
 		</style>
 
 		<div class="value-proposal-box sombra-inferior">
@@ -255,7 +259,23 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
                                     </div>
                                     <div class="metodo-botones">
                                         <div class="continuar">
-                                            <input type="submit" value="Continuar">
+                                            <form action="<?=SERVERURL?>finalizar-compra/" method="post">
+                                                <input type="hidden" name="pago_cheque" value="pago_cheque">
+                                                <input type="hidden" name="nit" value="<?=$_POST['nit']?>">
+                                                <input type="hidden" name="nombre-factura" value="<?=$_POST['nombre-factura']?>">
+                                                <input type="hidden" name="direccion-factura" value="<?=$_POST['direccion-factura']?>">
+                                                <input type="hidden" name="nombre" value="<?=$_POST['bill_to_forename']?>">
+                                                <input type="hidden" name="apellidos" value="<?=$_POST['bill_to_surname']?>">
+                                                <input type="hidden" name="correo" value="<?=$_POST['bill_to_email']?>">
+                                                <input type="hidden" name="telefono" value="<?=$_POST['bill_to_phone']?>">
+                                                <input type="hidden" name="direccion" value="<?=$_POST['bill_to_address_line1']?>">
+                                                <input type="hidden" name="departamento" value="<?=$_POST['bill_to_address_state']?>">
+                                                <input type="hidden" name="municipio" value="<?=$_POST['bill_to_address_city']?>">
+                                                <input type="hidden" name="postal" value="<?=$_POST['bill_to_address_postal_code']?>">
+                                                <input type="hidden" name="observaciones" value="<?=$_POST['observaciones']?>">
+                                                <input type="hidden" name="monto" value="<?=$_POST['amount']?>">
+                                                <input type="submit" value="Continuar">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -270,79 +290,85 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
                                     </div>
                                 </div>
                                 <div class="metodo-contenido">
-                                    <?php
-                                        include_once 'core/security.php';
-                                        /** Cybersource stuff */
-                                        $merchantId =  MERCHANT_ID;
-                                        $sessionId = time();
-                                        // DF TEST: 1snn5n9w, LIVE: k8vif92e
-                                        if (ENVIRONMENT == "development"){
-                                            $orgId = "1snn5n9w";
-                                            $postUrl = "https://testsecureacceptance.cybersource.com/silent/pay";
-                                        }else{
-                                            $orgId = "k8vif92e";
-                                            $postUrl = "https://secureacceptance.cybersource.com/silent/pay";
-                                        }
+                                    <?php if ($loginUsuario): ?>
+                                        <?php
+                                            include_once 'core/security.php';
+                                            /** Cybersource stuff */
+                                            $merchantId =  MERCHANT_ID;
+                                            $sessionId = time();
+                                            // DF TEST: 1snn5n9w, LIVE: k8vif92e
+                                            if (ENVIRONMENT == "development"){
+                                                $orgId = "1snn5n9w";
+                                                $postUrl = "https://testsecureacceptance.cybersource.com/silent/pay";
+                                            }else{
+                                                $orgId = "k8vif92e";
+                                                $postUrl = "https://secureacceptance.cybersource.com/silent/pay";
+                                            }
 
-                                        foreach($_REQUEST as $name => $value) {
-                                            $params[$name] = $value;
-                                        }
-                                        $params['device_fingerprint_id'] = $sessionId;
-                                    ?>
-                                    <form role="form" name="confirmPago" id="confirmPago" method="post" action="<?php echo $postUrl;?>">
-                                        <div class="metodo-elementos">
-                                            <!-- Device fingerprint stuff -->
-                                            <p style="background:url('/sos/fp/clear.png?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>&amp;m=1')"></p>
-                                            <img src="/sos/fp/clear.png?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>&amp;m=2" alt="">
-                                            <object type="application/x-shockwave-flash" data="/sos/fp/fp.swf?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" width="1" height="1" id="thm_fp">
-                                                <param name="movie"value="/sos//fp/fp.swf?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" />
-                                                <div></div>
-                                            </object>
-                                            <script src="/sos/fp/tags.js?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" type="text/javascript"> </script>
-                                            <noscript>
-                                                <iframe style="width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;" src="/sos/fp/tags?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" > </iframe>
-                                            </noscript>
-                                                <?php
-                                                foreach($params as $name => $value) {
-                                                    echo "<input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n";
-                                                }
-                                                echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
-                                                ?>
-                                                <label class="ecwid-fieldLabel" for="card_type">Tipo de tarjeta *</label>
-                                                <select id="card_type" name="card_type" class="custom-select form-control" required="">
-                                                    <option value="001">Visa</option>
-                                                    <option value="002">Master Card</option>
-                                                </select>
+                                            foreach($_REQUEST as $name => $value) {
+                                                $params[$name] = $value;
+                                            }
+                                            $params['device_fingerprint_id'] = $sessionId;
+                                        ?>
+                                        <form role="form" name="confirmPago" id="confirmPago" method="post" action="<?php echo $postUrl;?>">
+                                            <div class="metodo-elementos">
+                                                <!-- Device fingerprint stuff -->
+                                                <p style="background:url('/sos/fp/clear.png?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>&amp;m=1')"></p>
+                                                <img src="/sos/fp/clear.png?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>&amp;m=2" alt="">
+                                                <object type="application/x-shockwave-flash" data="/sos/fp/fp.swf?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" width="1" height="1" id="thm_fp">
+                                                    <param name="movie"value="/sos//fp/fp.swf?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" />
+                                                    <div></div>
+                                                </object>
+                                                <script src="/sos/fp/tags.js?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" type="text/javascript"> </script>
+                                                <noscript>
+                                                    <iframe style="width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;" src="/sos/fp/tags?org_id=<?php echo $orgId; ?>&amp;session_id=<?php echo $merchantId; ?><?php echo $sessionId; ?>" > </iframe>
+                                                </noscript>
+                                                    <?php
+                                                    foreach($params as $name => $value) {
+                                                        echo "<input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n";
+                                                    }
+                                                    echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
+                                                    ?>
+                                                    <label class="ecwid-fieldLabel" for="card_type">Tipo de tarjeta *</label>
+                                                    <select id="card_type" name="card_type" class="custom-select form-control" required="">
+                                                        <option value="001">Visa</option>
+                                                        <option value="002">Master Card</option>
+                                                    </select>
 
-                                                <label class="ecwid-fieldLabel" for="card_number">Número de tarjeta *</label>
-                                                <input type="text" class="form-control" id="card_number" name="card_number" placeholder="0000 0000 0000 0000" autocomplete="off" required="" autofocus maxlength="16">
-                                                
-                                                <div class="form-dos-columnas">
-                                                    <div class="form-columna form-columna-1">
-                                                        <label class="ecwid-fieldLabel" for="card_cvn">CVV *</label>
-                                                        <input type="number" class="form-control" id="card_cvn" name="card_cvn" placeholder="CVV" autocomplete="off" required="">
+                                                    <label class="ecwid-fieldLabel" for="card_number">Número de tarjeta *</label>
+                                                    <input type="text" class="form-control" id="card_number" name="card_number" placeholder="0000 0000 0000 0000" autocomplete="off" required="" autofocus maxlength="16">
+                                                    
+                                                    <div class="form-dos-columnas">
+                                                        <div class="form-columna form-columna-1">
+                                                            <label class="ecwid-fieldLabel" for="card_cvn">CVV *</label>
+                                                            <input type="number" class="form-control" id="card_cvn" name="card_cvn" placeholder="CVV" autocomplete="off" required="">
+                                                        </div>
+                                                        <div class="form-columna form-columna-2">
+                                                            <label class="ecwid-fieldLabel" for="card_expiry_date">Fecha Exp. *</label>
+                                                            <select id="card_expiry_date" name="card_expiry_date" class="custom-select form-control" required="">
+                                                                <?php
+                                                                for ($i = 0; $i <= 128; ++$i) {
+                                                                    $time = strtotime(sprintf('+%d months', $i));
+                                                                    $value = date('m-Y', $time);
+                                                                    $label = date('F Y', $time);
+                                                                    printf('<option value="%s">%s</option>', $value, $label);
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-columna form-columna-2">
-                                                        <label class="ecwid-fieldLabel" for="card_expiry_date">Fecha Exp. *</label>
-                                                        <select id="card_expiry_date" name="card_expiry_date" class="custom-select form-control" required="">
-                                                            <?php
-                                                            for ($i = 0; $i <= 128; ++$i) {
-                                                                $time = strtotime(sprintf('+%d months', $i));
-                                                                $value = date('m-Y', $time);
-                                                                $label = date('F Y', $time);
-                                                                printf('<option value="%s">%s</option>', $value, $label);
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        <div class="metodo-botones">
-                                            <div class="continuar">
-                                                <input type="submit" value="Continuar">
                                             </div>
-                                        </div>
-                                    </form>
+                                            <div class="metodo-botones">
+                                                <div class="continuar">
+                                                    <input type="submit" value="Continuar">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <?php else: ?>
+                                        <p>Inicia sesión o crea una cuenta para pagar con tarjeta de crédito o debito.</p>
+                                        <a class="login" href="<?=SERVERURL?>login-compra/">Iniciar sesión</a>
+                                        <a class="registro" href="<?=SERVERURL?>registro/">Crear cuenta</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <?php if ($tipo=="empresarial"): ?>
@@ -361,7 +387,23 @@ if(isset($_POST["nit"]) && isset($_POST["nombre-factura"]) && isset($_POST["dire
                                         </div>
                                         <div class="metodo-botones">
                                             <div class="continuar">
-                                                <input type="submit" value="Continuar">
+                                                <form action="<?=SERVERURL?>finalizar-compra/" method="post">
+                                                    <input type="hidden" name="pago_credito" value="pago_credito">
+                                                    <input type="hidden" name="nit" value="<?=$_POST['nit']?>">
+                                                    <input type="hidden" name="nombre-factura" value="<?=$_POST['nombre-factura']?>">
+                                                    <input type="hidden" name="direccion-factura" value="<?=$_POST['direccion-factura']?>">
+                                                    <input type="hidden" name="nombre" value="<?=$_POST['bill_to_forename']?>">
+                                                    <input type="hidden" name="apellidos" value="<?=$_POST['bill_to_surname']?>">
+                                                    <input type="hidden" name="correo" value="<?=$_POST['bill_to_email']?>">
+                                                    <input type="hidden" name="telefono" value="<?=$_POST['bill_to_phone']?>">
+                                                    <input type="hidden" name="direccion" value="<?=$_POST['bill_to_address_line1']?>">
+                                                    <input type="hidden" name="departamento" value="<?=$_POST['bill_to_address_state']?>">
+                                                    <input type="hidden" name="municipio" value="<?=$_POST['bill_to_address_city']?>">
+                                                    <input type="hidden" name="postal" value="<?=$_POST['bill_to_address_postal_code']?>">
+                                                    <input type="hidden" name="observaciones" value="<?=$_POST['observaciones']?>">
+                                                    <input type="hidden" name="monto" value="<?=$_POST['amount']?>">
+                                                    <input type="submit" value="Continuar">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

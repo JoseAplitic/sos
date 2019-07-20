@@ -185,7 +185,8 @@ $hayCarrito = $instanciaCargarInfoCarrito->verificar_carrito_controlador($tipo, 
 					<input type="hidden" name="currency" value="GTQ">
 					<input type="hidden" name="payment_method" value="card">
 					<input type="hidden" name="bill_to_address_country" value="GT" />
-					<input type="hidden" name="amount" value="12">
+					<?php $totalCarrito = $instanciaCargarInfoCarrito->cargar_total_carrito($tipo, $id_usuario); ?>
+					<input type="hidden" name="amount" value="<?=$totalCarrito?>">
 					<div class="datos-contenido">
 						<div class="datos-contenido-row row-1">
 							<div class="titulo">
@@ -197,19 +198,12 @@ $hayCarrito = $instanciaCargarInfoCarrito->verificar_carrito_controlador($tipo, 
 								<p class="comentario">*Campos requeridos</p>
 							</div>
 							<div class="formulario">
-								<?php
-									$readonly="";
-									if($tipo == "empresarial")
-									{
-										$readonly = "readonly";
-									}
-								?>
 								<label for="nit">NIT *</label>
-								<input id="nit" name="nit" type="text" value="<?=$datosCliente["Nit"]?>" required="" <?=$readonly?>>
+								<input id="nit" name="nit" type="text" value="<?=$datosCliente["Nit"]?>" required="">
 								<label for="nombre-factura">Nombre en la factura *</label>
-								<input id="nombre-factura" name="nombre-factura" type="text" value="<?=$datosCliente["NombreFactura"]?>" required="" <?=$readonly?>>
+								<input id="nombre-factura" name="nombre-factura" type="text" value="<?=$datosCliente["NombreFactura"]?>" required="">
 								<label for="direccion-factura">Dirección *</label>
-								<input id="direccion-factura" name="direccion-factura" type="text" value="<?=$datosCliente["DireccionFactura"]?>" required="" <?=$readonly?>>
+								<input id="direccion-factura" name="direccion-factura" type="text" value="<?=$datosCliente["DireccionFactura"]?>" required="">
 							</div>
 						</div>
 						<div class="datos-contenido-row row-2">
