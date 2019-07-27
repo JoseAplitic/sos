@@ -83,12 +83,26 @@
                         $productos = finalizarCompraModelo::cargar_carrito_personal($id_usuario);
                         if($productos->rowCount()>0)
                         {
+                            $peticionAjax = false;
+                            require_once "./controladores/cargarListaProductosControlador.php";
+                            $instanciaCargarProductos = new cargarListaProductosControlador();
                             $productos = $productos->fetchAll();
                             foreach ($productos as $item)
                             {
-                                finalizarCompraModelo::llenar_pedido_personal($id_pedido["id"], $item['sku'], $item['cantidad']);
+                                /** Obtener el precio del producto */
+                                $precioFinal = 0;
+                                $cargarPrecio = finalizarCompraModelo::obtener_precio_producto($item['sku']);
+                                if($cargarPrecio->rowCount()>0)
+                                {
+                                    $cargarPrecio = $cargarPrecio->fetch();
+                                    $cargarPrecio = $cargarPrecio["precio"];
+                                    $precio = $instanciaCargarProductos->obtener_precio_producto($item['sku'],$tipo_usuario,$cargarPrecio);
+                                    $precioFinal = number_format($precio,2);
+                                }
+                                finalizarCompraModelo::llenar_pedido_personal($id_pedido["id"], $item['sku'], $item['cantidad'], $precioFinal);
                             }
                             $id_pedido_retornar = $id_pedido["id"];
+                            finalizarCompraModelo::vaciar_carrito_personal($id_usuario);
                         }
                     }
                 }
@@ -105,12 +119,27 @@
                         $productos = finalizarCompraModelo::cargar_carrito_empresarial($id_usuario);
                         if($productos->rowCount()>0)
                         {
+                            $peticionAjax = false;
+                            require_once "./controladores/cargarListaProductosControlador.php";
+                            $instanciaCargarProductos = new cargarListaProductosControlador();
                             $productos = $productos->fetchAll();
                             foreach ($productos as $item)
                             {
-                                finalizarCompraModelo::llenar_pedido_empresarial($id_pedido["id"], $item['sku'], $item['cantidad']);
+                                /** Obtener el precio del producto */
+                                $precioFinal = 0;
+                                $cargarPrecio = finalizarCompraModelo::obtener_precio_producto($item['sku']);
+                                if($cargarPrecio->rowCount()>0)
+                                {
+                                    $cargarPrecio = $cargarPrecio->fetch();
+                                    $cargarPrecio = $cargarPrecio["precio"];
+                                    $precio = $instanciaCargarProductos->obtener_precio_producto($item['sku'],$tipo_usuario,$cargarPrecio);
+                                    $precioFinal = number_format($precio,2);
+                                }
+                                finalizarCompraModelo::llenar_pedido_empresarial($id_pedido["id"], $item['sku'], $item['cantidad'], $precioFinal);
                             }
                             $id_pedido_retornar = $id_pedido["id"];
+                            finalizarCompraModelo::vaciar_carrito_empresarial($id_usuario);
+
                         }
                     }
                 }
@@ -127,12 +156,26 @@
                         $productos = array();
                         if (isset($_COOKIE['user_carrito']))
                         {
+                            $peticionAjax = false;
+                            require_once "./controladores/cargarListaProductosControlador.php";
+                            $instanciaCargarProductos = new cargarListaProductosControlador();
                             $productos = unserialize($_COOKIE['user_carrito'], ["allowed_classes" => false]);
                             foreach ($productos as $item)
                             {
-                                finalizarCompraModelo::llenar_pedido_invitado($id_pedido["id"], $item['Producto'], $item['Cantidad']);
+                                /** Obtener el precio del producto */
+                                $precioFinal = 0;
+                                $cargarPrecio = finalizarCompraModelo::obtener_precio_producto($item['Producto']);
+                                if($cargarPrecio->rowCount()>0)
+                                {
+                                    $cargarPrecio = $cargarPrecio->fetch();
+                                    $cargarPrecio = $cargarPrecio["precio"];
+                                    $precio = $instanciaCargarProductos->obtener_precio_producto($item['Producto'],$tipo_usuario,$cargarPrecio);
+                                    $precioFinal = number_format($precio,2);
+                                }
+                                finalizarCompraModelo::llenar_pedido_invitado($id_pedido["id"], $item['Producto'], $item['Cantidad'], $precioFinal);
                             }
                             $id_pedido_retornar = $id_pedido["id"];
+                            finalizarCompraModelo::vaciar_carrito_invitado();
                         }
                     }
                 }

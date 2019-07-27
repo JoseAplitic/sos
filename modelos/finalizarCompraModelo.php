@@ -92,32 +92,35 @@
 			return $sql;
 		}
 
-		protected function llenar_pedido_personal($id_pedido, $sku, $cantidad)
+		protected function llenar_pedido_personal($id_pedido, $sku, $cantidad, $costo)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_clientes (id_pedido, producto, cantidad) VALUES (:id_pedido, :producto, :cantidad);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_clientes (id_pedido, producto, cantidad, costo) VALUES (:id_pedido, :producto, :cantidad, :costo);");
 			$sql->bindParam(":id_pedido", $id_pedido);
 			$sql->bindParam(":producto", $sku);
 			$sql->bindParam(":cantidad", $cantidad);
+			$sql->bindParam(":costo", $costo);
 			$sql->execute();
 			return $sql;
 		}
 
-		protected function llenar_pedido_empresarial($id_pedido, $sku, $cantidad)
+		protected function llenar_pedido_empresarial($id_pedido, $sku, $cantidad, $costo)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_empresas (id_pedido, producto, cantidad) VALUES (:id_pedido, :producto, :cantidad);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_empresas (id_pedido, producto, cantidad, costo) VALUES (:id_pedido, :producto, :cantidad, :costo);");
 			$sql->bindParam(":id_pedido", $id_pedido);
 			$sql->bindParam(":producto", $sku);
 			$sql->bindParam(":cantidad", $cantidad);
+			$sql->bindParam(":costo", $costo);
 			$sql->execute();
 			return $sql;
 		}
 
-		protected function llenar_pedido_invitado($id_pedido, $sku, $cantidad)
+		protected function llenar_pedido_invitado($id_pedido, $sku, $cantidad, $costo)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_visitantes (id_pedido, producto, cantidad) VALUES (:id_pedido, :producto, :cantidad);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO detalles_compras_visitantes (id_pedido, producto, cantidad, costo) VALUES (:id_pedido, :producto, :cantidad, :costo);");
 			$sql->bindParam(":id_pedido", $id_pedido);
 			$sql->bindParam(":producto", $sku);
 			$sql->bindParam(":cantidad", $cantidad);
+			$sql->bindParam(":costo", $costo);
 			$sql->execute();
 			return $sql;
 		}
@@ -155,6 +158,35 @@
 		{
 			$sql=mainModel::conectar()->prepare("SELECT sku, cantidad FROM carrito_empresarial WHERE id_cliente = :Cliente");
 			$sql->bindParam(":Cliente",$cliente);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function vaciar_carrito_personal($id_cliente)
+		{
+			$sql=mainModel::conectar()->prepare("DELETE FROM carrito_personal WHERE id_cliente = :Id;");
+			$sql->bindParam(":Id", $id_cliente);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function vaciar_carrito_empresarial($id_cliente)
+		{
+			$sql=mainModel::conectar()->prepare("DELETE FROM carrito_empresarial WHERE id_cliente = :Id;");
+			$sql->bindParam(":Id", $id_cliente);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function vaciar_carrito_invitado()
+		{
+			echo '<script>document.cookie = "user_carrito=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";</script>';
+		}
+		
+		protected function obtener_precio_producto($sku)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT precio FROM productos WHERE sku = :Sku;");
+			$sql->bindParam(":Sku", $sku);
 			$sql->execute();
 			return $sql;
 		}

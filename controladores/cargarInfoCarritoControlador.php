@@ -143,41 +143,6 @@
                         }
                         $subtotal = $precio * $cantidad;
                         $total = $total + $subtotal;
-                            '<div class="row item">
-                                <div class="column producto w60">
-                                    <div class="imagen">
-                                        <a href="'.SERVERURL.'producto/'.$producto['slug'].'/">
-                                            <img src="'.PRODUCTOSURL.$producto['sku'].'.jpg" alt="'.$producto['nombre'].'">
-                                        </a>
-                                    </div>
-                                    <div class="texto">
-                                        <a href="'.SERVERURL.'producto/'.$producto['slug'].'/">
-                                            <h3 class="nombre">'.$producto['nombre'].'</h3>
-                                            <p class="sku">'.$producto['sku'].'</p>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="column precio w20"><p>Q'.$precio.'</p></div>
-                                <div class="column cantidad w20">
-                                    <form id="actualizarCarrito" action="'.SERVERURL.'ajax/carritoAjax.php" method="POST" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-                                        <input type="hidden" name="accion" value="actualizar">
-                                        <input type="hidden" name="tipo_usuario" value="'.$tipo_usuario.'">
-                                        <input type="hidden" name="id_usuario" value="'.$id_usuario.'">
-                                        <input type="hidden" name="producto" value="'.$producto['sku'].'">
-                                        <input type="number" name="cantidad" required="" value="'.$cantidad.'" min="1" step="1">
-                                        <div class="RespuestaAjax"></div>
-                                    </form>
-                                    <form id="borrarCarrito" action="'.SERVERURL.'ajax/carritoAjax.php" method="POST" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-                                        <input type="hidden" name="accion" value="borrar">
-                                        <input type="hidden" name="tipo_usuario" value="'.$tipo_usuario.'">
-                                        <input type="hidden" name="id_usuario" value="'.$id_usuario.'">
-                                        <input type="hidden" name="producto" value="'.$producto['sku'].'">
-                                        <input type="submit" value="Eliminar">
-                                        <div class="RespuestaAjax"></div>
-                                    </form>
-                                </div>
-                                <div class="column subtotal w20"><p>Q'.$subtotal.'</p></div>
-                            </div>';
                     }
                 }
             }
