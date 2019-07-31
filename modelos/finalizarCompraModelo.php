@@ -190,5 +190,13 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function obtener_nombre_producto($sku)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT nombre FROM productos WHERE sku = :Sku;");
+			$sql->bindParam(":Sku", $sku);
+			$sql->execute();
+			return $sql;
+		}
         
 	}

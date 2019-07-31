@@ -66,9 +66,9 @@
 			.finalizar-compra-contenedor .finalizar-compra-contenido .texto a{font-size: 14pt;color: #0d6bb7;margin-bottom: 20px;text-decoration:none;}
 			.finalizar-compra-contenedor .finalizar-compra-contenido .texto a:hover{text-decoration:underline;}
 
-			.finalizar-compra-contenedor .finalizar-compra-contenido form .continuar{text-align:center;}
-			.finalizar-compra-contenedor .finalizar-compra-contenido form .continuar input[type="submit"]{background-color: #0d6bb7;border-width: 0px !important;border-radius: 0px;display: flex;margin: 10px auto;width: max-content;color: #fff;padding: 15px 100px;font-size:14pt;font-weight: bold;}
-			.finalizar-compra-contenedor .finalizar-compra-contenido form .continuar input[type="submit"]:hover{cursor:pointer;}
+			.finalizar-compra-contenedor .finalizar-compra-contenido .continuar{text-align:center;}
+			.finalizar-compra-contenedor .finalizar-compra-contenido .continuar a{background-color: #0d6bb7;border-width: 0px !important;border-radius: 0px;display: flex;margin: 10px auto;width: max-content;color: #fff;padding: 15px 100px;font-size:14pt;font-weight: bold;text-decoration: none;}
+			.finalizar-compra-contenedor .finalizar-compra-contenido .continuar a:hover{cursor:pointer;}
 			.finalizar-compra-contenedor .finalizar-compra-contenido .pedido-exitoso{text-align:center;}
 			.finalizar-compra-contenedor .finalizar-compra-contenido .pedido-exitoso .noticia{font-size: 18pt;margin-bottom:30px;}
 			.finalizar-compra-contenedor .finalizar-compra-contenido .icono{text-align:center;margin-bottom:30px;}
@@ -121,12 +121,9 @@
 								<img src="<?php echo SERVERURL; ?>vistas/assets/img/check.png">
 							</div>
 							<p class="noticia">Tu pedido se ha procesado exitosamente.</p>
-							<form action="<?=SERVERURL?>pedido/" method="post">
-								<input type="hidden" name="id-pedido" value="<?=$pedidoId;?>">
-								<div class="continuar">
-									<input type="submit" value="Ver detalles del pedido">
-								</div>
-							</form>
+							<div class="continuar">
+								<a href="<?=SERVERURL?>pedido/<?=$pedidoId;?>/">Ver detalles del pedido</a>
+							</div>
 						</div>
 					<?php else: ?>
 						<style>
@@ -174,12 +171,9 @@
 							<img src="<?php echo SERVERURL; ?>vistas/assets/img/check.png">
 						</div>
 						<p class="noticia">Tu pedido se ha procesado exitosamente.</p>
-						<form action="<?=SERVERURL?>pedido/" method="post">
-							<input type="hidden" name="id-pedido" value="<?=$pedidoId;?>">
-							<div class="continuar">
-								<input type="submit" value="Ver detalles del pedido">
-							</div>
-						</form>
+						<div class="continuar">
+							<a href="<?=SERVERURL?>pedido/<?=$pedidoId;?>/">Ver detalles del pedido</a>
+						</div>
 					</div>
 				<?php elseif (isset($_REQUEST['pago_credito'])): ?>
 					<?php
@@ -209,12 +203,9 @@
 							<img src="<?php echo SERVERURL; ?>vistas/assets/img/check.png">
 						</div>
 						<p class="noticia">Tu pedido se ha procesado exitosamente.</p>
-						<form action="<?=SERVERURL?>pedido/" method="post">
-							<input type="hidden" name="id-pedido" value="<?=$pedidoId;?>">
-							<div class="continuar">
-								<input type="submit" value="Ver detalles del pedido">
-							</div>
-						</form>
+						<div class="continuar">
+							<a href="<?=SERVERURL?>pedido/<?=$pedidoId;?>/">Ver detalles del pedido</a>
+						</div>
 					</div>
 				<?php else: ?>
 					<script> window.location="<?=SERVERURL?>facturacion-y-envio/" </script>
