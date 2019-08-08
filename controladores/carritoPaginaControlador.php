@@ -62,7 +62,7 @@
                                     <div class="texto">
                                         <a href="'.SERVERURL.'producto/'.$producto['slug'].'/">
                                             <h3 class="nombre">'.$producto['nombre'].'</h3>
-                                            <p class="sku">'.$producto['sku'].'</p>
+                                            
                                         </a>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                     <div class="texto">
                                         <a href="'.SERVERURL.'producto/'.$producto['slug'].'/">
                                             <h3 class="nombre">'.$producto['nombre'].'</h3>
-                                            <p class="sku">'.$producto['sku'].'</p>
+                                            
                                         </a>
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@
                                     <div class="texto">
                                         <a href="'.SERVERURL.'producto/'.$producto['slug'].'/">
                                             <h3 class="nombre">'.$producto['nombre'].'</h3>
-                                            <p class="sku">'.$producto['sku'].'</p>
+                                            
                                         </a>
                                     </div>
                                 </div>

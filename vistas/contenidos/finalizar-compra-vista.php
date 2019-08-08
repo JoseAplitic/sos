@@ -145,7 +145,6 @@
 					<?php endif; ?>
 				<?php elseif (isset($_REQUEST['pago_cheque'])): ?>
 					<?php
-						date_default_timezone_set('UTC');
 						$dia=date('Y-m-d');
 						$datosPedido=[
 							"Nit" => $_POST["nit"],
@@ -177,7 +176,6 @@
 					</div>
 				<?php elseif (isset($_REQUEST['pago_credito'])): ?>
 					<?php
-						date_default_timezone_set('UTC');
 						$dia=date('Y-m-d');
 						$datosPedido=[
 							"Nit" => $_POST["nit"],

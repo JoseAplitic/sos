@@ -21,7 +21,6 @@
                 if($datos->rowCount()>0)
                 {
                     $datos = $datos->fetch();
-                    date_default_timezone_set('UTC');
                     $dia=date('Y-m-d');
                     $datosPedido=[
                         "Nit" => $datos["facturacion_nit"],
@@ -49,7 +48,6 @@
                 if($datos->rowCount()>0)
                 {
                     $datos = $datos->fetch();
-                    date_default_timezone_set('UTC');
                     $dia=date('Y-m-d');
                     $datosPedido=[
                         "Nit" => $datos["nit"],
